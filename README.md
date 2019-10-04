@@ -8,6 +8,10 @@ Job Vacancy Application
 * Germán Ariel Torós
 * Gabriel Martín Moran
 
+## URL de la aplicación (staging)
+
+* http://kingjobvacancystaging.herokuapp.com/
+
 ## PostgreSQL setup
 
 Follow these steps to initialize the PostgreSQL databases:
