@@ -24,6 +24,6 @@ job_deploy_staging:
   stage: deploy_staging
   script:
   - gem install dpl
-  - dpl --provider=heroku --app=kingjobvacancystaging --api-key=$HEROKU_STAGING_API_KEY
+  - dpl --provider=heroku --app=$HEROKU_STAGING_APP --api-key=$HEROKU_STAGING_API_KEY
   only:
   - staging
