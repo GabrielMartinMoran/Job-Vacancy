@@ -1,7 +1,16 @@
 Job Vacancy Application
 =======================
 
-[![build status](https://gitlab.com/fiuba-memo2/jobvacancy/badges/master/build.svg)](https://gitlab.com/fiuba-memo2/jobvacancy/commits/master)
+[![build status](https://gitlab.com/untref-ingsoft/tps/king/badges/master/build.svg)](https://gitlab.com/untref-ingsoft/tps/king/commits/master)
+
+## Miembros del equipo
+
+* Germán Ariel Torós
+* Gabriel Martín Moran
+
+## URL de la aplicación (staging)
+
+* http://kingjobvacancystaging.herokuapp.com/
 
 ## PostgreSQL setup
 
