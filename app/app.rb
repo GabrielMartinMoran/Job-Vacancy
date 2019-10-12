@@ -18,7 +18,7 @@ module JobVacancy
         port: ENV['SMTP_PORT'],
         user_name: ENV['SMTP_USER'],
         password: ENV['SMTP_PASS'],
-        authentucation: :plain,
+        authentication: :plain,
         enable_starttls_auto: true
       }
     end
