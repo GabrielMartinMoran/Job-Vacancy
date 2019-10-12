@@ -33,7 +33,7 @@ Scenario: Create new offer with 4 tags
   And I fill the tags with "ALGOL 58, Python3, Basic, Whitespace"
   And confirm the new offer
   Then I should see a message indicating that there is too much tags
-@wip
+
 Scenario: Create new offer with 4 tags repeating 1 tag
   When I fill the title with "Agile programmer vacancy"
   And I fill the tags with "Ruby, Cucumber, Agile, Ruby"
