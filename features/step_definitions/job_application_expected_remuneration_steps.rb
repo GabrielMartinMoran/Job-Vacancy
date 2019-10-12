@@ -1,5 +1,7 @@
 When('I try to apply') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit '/job_offers'
+  click_link 'Apply'
+  fill_in('job_application[applicant_email]', with: 'applicant@test.com')
 end
 
 When('I fill expected remuneration with {int}') do |_int|
