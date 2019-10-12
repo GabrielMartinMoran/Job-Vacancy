@@ -9,6 +9,7 @@ variables:
 stages:
   - build
   - deploy_staging
+  - deploy_production
 
 job_build:
   stage: build
@@ -27,3 +28,11 @@ job_deploy_staging:
   - dpl --provider=heroku --app=$HEROKU_STAGING_APP --api-key=$HEROKU_STAGING_API_KEY
   only:
   - staging
+
+job_deploy_production:
+  stage: deploy_production
+  script:
+  - gem install dpl
+  - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP --api-key=$HEROKU_PRODUCTION_API_KEY
+  only:
+  - master

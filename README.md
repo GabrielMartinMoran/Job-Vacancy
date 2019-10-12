@@ -8,9 +8,10 @@ Job Vacancy Application
 * Germán Ariel Torós
 * Gabriel Martín Moran
 
-## URL de la aplicación (staging)
+## URL de la aplicación
 
-* http://kingjobvacancystaging.herokuapp.com/
+* **Staging:** http://kingjobvacancystaging.herokuapp.com/
+* **Production:** http://kingjobvacancy.herokuapp.com/
 
 ## PostgreSQL setup
 
