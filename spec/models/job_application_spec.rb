@@ -19,6 +19,11 @@ describe JobApplication do
       ja = described_class.create_for('applicant@test.com', offer)
       expect(ja.job_offer).to eq(offer)
     end
+
+    it 'should raise exception if expected_remuneration is not a number' do
+      offer = JobOffer.new
+      expect { described_class.create_for('applicant@test.com', offer, 'a') }.to raise_exception
+    end
   end
 
   describe 'process' do
