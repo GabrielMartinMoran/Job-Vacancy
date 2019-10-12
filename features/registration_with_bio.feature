@@ -18,7 +18,6 @@ Feature: Registration with short bio
     And User tries to register
     Then User should see a message indicating error on short bio
 
-  @wip
   Scenario: Registration withouth providing bio
     When User fills email with 'notprovidingbio@test.com' and password, password confirmation and name with valid values
     And User tries to register
