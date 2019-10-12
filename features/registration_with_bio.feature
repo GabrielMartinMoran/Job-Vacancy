@@ -12,7 +12,6 @@ Feature: Registration with short bio
     And User tries to register
     Then User should be able to login with email '50charslengthbio@test.com'
 
-  @wip
   Scenario: Registration with a long bio
     When User fills email with 'longbio@test.com' and password, password confirmation and name with valid values
     And User fills short bio with a text of 501 characters length

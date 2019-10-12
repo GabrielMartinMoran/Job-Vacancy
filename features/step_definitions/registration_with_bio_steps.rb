@@ -28,5 +28,5 @@ Then('User should be able to login with email {string}') do |email|
 end
 
 Then('User should see a message indicating error on short bio') do
-  pending # Write code here that turns the phrase above into concrete actions
+  page.should have_content('Short bio is mandatory and must have between 50 and 500 characters')
 end

@@ -8,11 +8,15 @@ class User
   MIN_LENGTH_VALID_BIO = 50
   MAX_LENGTH_VALID_BIO = 500
 
-  validates :name, :crypted_password, presence: true
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX,
-                                              message: 'invalid email' }
-  validates :short_bio, presence: true, length: { minimum: MIN_LENGTH_VALID_BIO,
-                                                  maximum: MAX_LENGTH_VALID_BIO }
+  validates :name, :crypted_password, :email,
+            presence: { message: 'All fields are mandatory' }
+  validates :email, format: { with: VALID_EMAIL_REGEX, message: 'Invalid email' }
+  validates :short_bio, length: {
+    minimum: MIN_LENGTH_VALID_BIO,
+    maximum: MAX_LENGTH_VALID_BIO,
+    message: format('Short bio is mandatory and must have between %d and %d characters',
+                    MIN_LENGTH_VALID_BIO, MAX_LENGTH_VALID_BIO)
+  }
 
   def initialize(data = {})
     @id = data[:id]
