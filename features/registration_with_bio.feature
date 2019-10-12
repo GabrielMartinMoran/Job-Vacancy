@@ -6,7 +6,6 @@ Feature: Registration with short bio
   Background:
     Given User acceses to the register page
 
-  @wip
   Scenario: Registration with a valid length bio
     When User fills email with '50charslengthbio@test.com' and password, password confirmation and name with valid values
     And User fills short bio with a text of 50 characters length

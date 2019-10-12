@@ -2,8 +2,11 @@ Given('User acceses to the register page') do
   visit '/register'
 end
 
-When('User fills email with {string} and password, password confirmation and name with valid values') do |_email|
-  pending # Write code here that turns the phrase above into concrete actions
+When('User fills email with {string} and password, password confirmation and name with valid values') do |email|
+  fill_in('user[name]', with: 'UserName')
+  fill_in('user[email]', with: email)
+  fill_in('user[password]', with: 'PassW0rd!123')
+  fill_in('user[password_confirmation]', with: 'PassW0rd!123')
 end
 
 When('User fills short bio with a text of {int} characters length') do |_bio_length|
