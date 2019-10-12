@@ -1,5 +1,5 @@
 Given('User acceses to the register page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit '/register'
 end
 
 When('User fills email with {string} and password, password confirmation and name with valid values') do |_email|
