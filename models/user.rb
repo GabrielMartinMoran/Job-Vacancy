@@ -9,6 +9,7 @@ class User
   validates :name, :crypted_password, presence: true
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX,
                                               message: 'invalid email' }
+  validates :short_bio, presence: true
 
   def initialize(data = {})
     @id = data[:id]
