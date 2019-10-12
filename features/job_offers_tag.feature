@@ -27,7 +27,7 @@ Scenario: Create new offer with 1 tag
   And confirm the new offer
   Then I should see "Offer created"
   And I should see "algol58" in tags field for "Algol programmer vacancy" in My Offers
-@wip
+
 Scenario: Create new offer with 4 tags
   When I fill the title with "Programmer vacancy"
   And I fill the tags with "ALGOL 58, Python3, Basic, Whitespace"

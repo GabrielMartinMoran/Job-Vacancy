@@ -49,12 +49,12 @@ JobVacancy::App.controllers :job_offers do
   post :create do
     @job_offer = JobOffer.new(job_offer_params)
     @job_offer.owner = current_user
-    if JobOfferRepository.new.save(@job_offer)
+    if @job_offer.has_valid_tags && JobOfferRepository.new.save(@job_offer)
       TwitterClient.publish(@job_offer) if params['create_and_twit']
       flash[:success] = 'Offer created'
       redirect '/job_offers/my'
     else
-      flash.now[:error] = 'Title is mandatory'
+      flash.now[:error] = (@job_offer.errors.messages.map { |_key, value| value }).join(', ')
       render 'job_offers/new'
     end
   end
@@ -63,11 +63,11 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOffer.new(job_offer_params.merge(id: params[:offer_id]))
     @job_offer.owner = current_user
 
-    if JobOfferRepository.new.save(@job_offer)
+    if @job_offer.has_valid_tags && JobOfferRepository.new.save(@job_offer)
       flash[:success] = 'Offer updated'
       redirect '/job_offers/my'
     else
-      flash.now[:error] = 'Title is mandatory'
+      flash.now[:error] = (@job_offer.errors.messages.map { |_key, value| value }).join(', ')
       render 'job_offers/edit'
     end
   end

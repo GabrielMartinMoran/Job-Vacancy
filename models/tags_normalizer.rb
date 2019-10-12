@@ -6,7 +6,7 @@ class TagsNormalizer
   def normalize(tags)
     normalized_array = tags.downcase.delete(' ').split(',').reject(&:empty?).uniq
 
-    raise Exception, 'Too much tags' if normalized_array.length > @max_tags
+    raise StandardError, 'Too much tags' if normalized_array.length > @max_tags
 
     normalized_array.join(',')
   end

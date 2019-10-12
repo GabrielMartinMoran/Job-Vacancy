@@ -9,5 +9,5 @@ Then('I should see {string} in tags field for {string} in My Offers') do |tags, 
 end
 
 Then('I should see a message indicating that there is too much tags') do
-  pending # Write code here that turns the phrase above into concrete actions
+  page.should have_content('Too much tags')
 end
