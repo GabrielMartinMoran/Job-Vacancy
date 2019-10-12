@@ -15,7 +15,7 @@ When('User fills short bio with a text of {int} characters length') do |bio_leng
 end
 
 When('User tries to register') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_button('Create')
 end
 
 Then('User should be able to login with email {string}') do |_email|
