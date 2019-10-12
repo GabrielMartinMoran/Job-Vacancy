@@ -5,7 +5,7 @@ Feature: Add tags to offers
 
 Background:
   Given I am logged in as job offerer
-  And I access to the new offer page
+  And I access the new offer page
 
 Scenario: Create new offer without tags
   When I fill the title with "Programmer vacancy"
