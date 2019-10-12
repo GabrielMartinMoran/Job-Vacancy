@@ -1,7 +1,8 @@
 class User
   include ActiveModel::Validations
 
-  attr_accessor :id, :name, :email, :crypted_password, :job_offers, :updated_on, :created_on
+  attr_accessor :id, :name, :email, :crypted_password, :job_offers, :updated_on, :created_on,
+                :short_bio
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
@@ -21,6 +22,7 @@ class User
     @job_offers = data[:job_offers]
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
+    @short_bio = data[:short_bio]
   end
 
   def has_password?(password)
