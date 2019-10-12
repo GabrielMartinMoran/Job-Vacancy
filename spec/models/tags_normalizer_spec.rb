@@ -18,5 +18,9 @@ describe TagsNormalizer do
     it 'should return "tag1,tag2" when tags is "tag1, tag2"' do
       expect(described_class.normalize('tag1, tag2')).to eq 'tag1,tag2'
     end
+
+    it 'should return "tag1,tag2" when tags is ",tag1,tag2,"' do
+      expect(described_class.normalize(',tag1,tag2,')).to eq 'tag1,tag2'
+    end
   end
 end
