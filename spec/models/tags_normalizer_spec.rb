@@ -1,26 +1,30 @@
 require 'rspec'
 require_relative '../../models/tags_normalizer'
 
+MAX_TAGS_QUANTITY = 3
+
 describe TagsNormalizer do
+  subject(:tags_normalizer) { described_class.new(MAX_TAGS_QUANTITY) }
+
   context 'when normalize' do
     it 'should return empty string when tags is empty string' do
-      expect(described_class.normalize('')).to eq ''
+      expect(tags_normalizer.normalize('')).to eq ''
     end
 
     it 'should return "tag1" when tags is "tag1"' do
-      expect(described_class.normalize('tag1')).to eq 'tag1'
+      expect(tags_normalizer.normalize('tag1')).to eq 'tag1'
     end
 
     it 'should return "tag1" when tags is "Tag1"' do
-      expect(described_class.normalize('Tag1')).to eq 'tag1'
+      expect(tags_normalizer.normalize('Tag1')).to eq 'tag1'
     end
 
     it 'should return "tag1,tag2" when tags is "tag1, tag2"' do
-      expect(described_class.normalize('tag1, tag2')).to eq 'tag1,tag2'
+      expect(tags_normalizer.normalize('tag1, tag2')).to eq 'tag1,tag2'
     end
 
     it 'should return "tag1,tag2" when tags is ",tag1,tag2,"' do
-      expect(described_class.normalize(',tag1,tag2,')).to eq 'tag1,tag2'
+      expect(tags_normalizer.normalize(',tag1,tag2,')).to eq 'tag1,tag2'
     end
   end
 end
