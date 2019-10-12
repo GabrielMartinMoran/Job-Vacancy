@@ -5,11 +5,12 @@ class User
                 :short_bio
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+  MIN_LENGTH_VALID_BIO = 50
 
   validates :name, :crypted_password, presence: true
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX,
                                               message: 'invalid email' }
-  validates :short_bio, presence: true
+  validates :short_bio, presence: true, length: { minimum: MIN_LENGTH_VALID_BIO }
 
   def initialize(data = {})
     @id = data[:id]

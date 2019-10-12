@@ -50,6 +50,13 @@ describe User do
                                  crypted_password: 'a_secure_passWord!')
       expect(user.valid?).to eq false
     end
+
+    it 'should be false when short bio length is lower than 50 characters' do
+      user = described_class.new(name: 'John Doe', email: 'john@doe.com',
+                                 crypted_password: 'a_secure_passWord!',
+                                 short_bio: 'BIO')
+      expect(user.valid?).to eq false
+    end
   end
 
   describe 'has password?' do
