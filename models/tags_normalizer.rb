@@ -1,5 +1,5 @@
 class TagsNormalizer
   def self.normalize(tags)
-    tags
+    tags.downcase
   end
 end
