@@ -3,7 +3,7 @@ class JobOffer
 
   attr_accessor :id, :user, :user_id, :title,
                 :location, :description, :is_active,
-                :updated_on, :created_on
+                :updated_on, :created_on, :tags
 
   validates :title, presence: true
 
@@ -16,6 +16,7 @@ class JobOffer
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
     @user_id = data[:user_id]
+    @tags = data[:tags]
   end
 
   def owner
