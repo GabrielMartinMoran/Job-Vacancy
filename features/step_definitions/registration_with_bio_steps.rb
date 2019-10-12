@@ -18,8 +18,13 @@ When('User tries to register') do
   click_button('Create')
 end
 
-Then('User should be able to login with email {string}') do |_email|
-  pending # Write code here that turns the phrase above into concrete actions
+Then('User should be able to login with email {string}') do |email|
+  visit '/login'
+  fill_in('user[email]', with: email)
+  fill_in('user[password]', with: 'PassW0rd!123')
+  click_button('Login')
+  assert_current_path('/')
+  page.should have_content(email)
 end
 
 Then('User should see a message indicating error on short bio') do
