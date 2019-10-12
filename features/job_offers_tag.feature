@@ -40,7 +40,7 @@ Scenario: Create new offer with 4 tags repeating 1 tag
   And confirm the new offer
   Then I should see "Offer created"
   And I should see "ruby,cucumber,agile" in tags field for "Agile programmer vacancy" in My Offers
-@wip
+
 Scenario: Create new offer with 2 same tags but with different casing
   When I fill the title with "JavaScript programmer vacancy"
   And I fill the tags with "JavaScript, jAvAsCrIpT"
