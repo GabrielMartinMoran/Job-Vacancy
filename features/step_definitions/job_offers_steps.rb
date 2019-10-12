@@ -23,7 +23,7 @@ When(/^confirm the new offer$/) do
   click_button('Create')
 end
 
-Then(/^I should see "(.*?)" in My Offers$/) do |content|
+Then('I should see {string} in My Offers') do |content|
   visit '/job_offers/my'
   page.should have_content(content)
 end
