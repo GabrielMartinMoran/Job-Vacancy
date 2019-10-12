@@ -13,7 +13,7 @@ Scenario: Create new offer without tags
   And confirm the new offer
   Then I should see "Offer created"
   And I should see "" in tags field for "Programmer vacancy" in My Offers
-@wip
+
 Scenario: Create new offer with 3 tags
   When I fill the title with "Multiparadigm programmer vacancy"
   And I fill the tags with "Python3, Basic, Whitespace"

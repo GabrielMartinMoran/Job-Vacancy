@@ -1,3 +1,7 @@
+require_relative 'tags_normalizer'
+
+MAX_TAGS_QUANTITY = 3
+
 class JobOffer
   include ActiveModel::Validations
 
@@ -16,7 +20,7 @@ class JobOffer
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
     @user_id = data[:user_id]
-    @tags = data[:tags]
+    @tags = TagsNormalizer.new(MAX_TAGS_QUANTITY).normalize(data[:tags] || '')
   end
 
   def owner
