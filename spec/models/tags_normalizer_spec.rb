@@ -30,5 +30,9 @@ describe TagsNormalizer do
     it 'should return "tag1,tag2" when tags is "tag1,tag2,tag1"' do
       expect(tags_normalizer.normalize('tag1,tag2,tag1')).to eq 'tag1,tag2'
     end
+
+    it 'should raise exception when normalized tags are greater than max defined tags' do
+      expect { tags_normalizer.normalize('tag1,tag2,tag3,tag4') }.to raise_exception
+    end
   end
 end
