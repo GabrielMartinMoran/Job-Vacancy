@@ -9,8 +9,9 @@ When('User fills email with {string} and password, password confirmation and nam
   fill_in('user[password_confirmation]', with: 'PassW0rd!123')
 end
 
-When('User fills short bio with a text of {int} characters length') do |_bio_length|
-  pending # Write code here that turns the phrase above into concrete actions
+When('User fills short bio with a text of {int} characters length') do |bio_length|
+  short_bio = 'A' * bio_length
+  fill_in('user[short_bio]', with: short_bio)
 end
 
 When('User tries to register') do
