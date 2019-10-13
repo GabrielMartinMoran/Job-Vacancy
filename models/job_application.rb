@@ -7,13 +7,14 @@ class JobApplication
     app.applicant_email = email
     app.job_offer = offer
     if expected_remuneration == '' || expected_remuneration.nil?
-      expected_remuneration = 'Not specified'
+      app.expected_remuneration = 'Not specified'
     else
       unless (expected_remuneration.is_a? Numeric) && expected_remuneration.positive?
         raise StandardError, 'Expected remuneration must be a number greater than zero'
       end
+
+      app.expected_remuneration = expected_remuneration
     end
-    app.expected_remuneration = expected_remuneration
     app
   end
 
