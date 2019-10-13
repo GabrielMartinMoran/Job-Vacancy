@@ -9,20 +9,20 @@ Feature: Expected remuneration on job application
 
   Scenario: Apply to job offer providing expected remuneration
     When I try to apply
-    And I fill expected remuneration with 10000
+    And I fill expected remuneration with 10000.0
     And I submit application
     Then the job offerer receive a mail with application info
     And expected remuneration in mail is '10000'
-
+@wip
   Scenario: Apply to job offer not providing expected remuneration
     When I try to apply
     And I submit application
     Then I should receive a mail with offerer info
     And the job offerer receive a mail with application info
     And expected remuneration in mail is 'Not specified'
-
+@wip
   Scenario: Apply to job offer providing negative expected remuneration
     When I try to apply
-    And I fill expected remuneration with -10000
+    And I fill expected remuneration with -10000.0
     And I submit application
     Then I should see a message indicating error on expected remuneration

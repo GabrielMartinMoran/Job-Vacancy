@@ -4,8 +4,8 @@ When('I try to apply') do
   fill_in('job_application[applicant_email]', with: 'applicant@test.com')
 end
 
-When('I fill expected remuneration with {int}') do |_int|
-  pending # Write code here that turns the phrase above into concrete actions
+When('I fill expected remuneration with {float}') do |expected_remuneration|
+  fill_in('job_application[expected_remuneration]', with: expected_remuneration)
 end
 
 When('I submit application') do
