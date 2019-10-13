@@ -9,7 +9,8 @@ class JobApplication
     if expected_remuneration == ''
       expected_remuneration = 'Not specified'
     else
-      unless expected_remuneration.nil? || (expected_remuneration.is_a? Numeric)
+      unless expected_remuneration.nil? ||
+             ((expected_remuneration.is_a? Numeric) && expected_remuneration.positive?)
         raise StandardError, 'Expected remuneration must be a number greater than zero'
       end
     end
