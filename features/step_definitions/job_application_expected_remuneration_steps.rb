@@ -23,8 +23,8 @@ Then('the job offerer receive a mail with application info') do
   @mail_content.include?(@job_offer.description).should be true
 end
 
-Then('expected remuneration in mail is {string}') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+Then('expected remuneration in mail is {string}') do |expected_remuneration|
+  @mail_content.include?(expected_remuneration).should be true
 end
 
 Then('I should see a message indicating error on expected remuneration') do
