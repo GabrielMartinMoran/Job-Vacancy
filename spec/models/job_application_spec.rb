@@ -24,6 +24,12 @@ describe JobApplication do
       offer = JobOffer.new
       expect { described_class.create_for('applicant@test.com', offer, 'a') }.to raise_exception
     end
+
+    it 'expected remuneration should be "Not specified" if is an empty string' do
+      offer = JobOffer.new
+      ja = described_class.create_for('applicant@test.com', offer, '')
+      expect(ja.expected_remuneration).to eq('Not specified')
+    end
   end
 
   describe 'process' do
