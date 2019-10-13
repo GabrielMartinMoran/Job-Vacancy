@@ -13,7 +13,14 @@ When('I submit application') do
 end
 
 Then('the job offerer receive a mail with application info') do
-  pending # Write code here that turns the phrase above into concrete actions
+  mail_store = "#{Padrino.root}/tmp/emails"
+  file = File.open("#{mail_store}/#{@job_offer.owner.email}", 'r')
+  @mail_content = file.read
+  @mail_content.include?("Application for offer #{@job_offer.id}").should be true
+  @mail_content.include?('applicant@test.com').should be true
+  @mail_content.include?(@job_offer.title).should be true
+  @mail_content.include?(@job_offer.location).should be true
+  @mail_content.include?(@job_offer.description).should be true
 end
 
 Then('expected remuneration in mail is {string}') do |_string|
