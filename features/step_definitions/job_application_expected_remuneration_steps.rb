@@ -28,5 +28,5 @@ Then('expected remuneration in mail is {string}') do |expected_remuneration|
 end
 
 Then('I should see a message indicating error on expected remuneration') do
-  pending # Write code here that turns the phrase above into concrete actions
+  page.should have_content('Expected remuneration must be a number greater than zero')
 end

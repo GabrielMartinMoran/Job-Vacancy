@@ -41,7 +41,14 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
     applicant_email = params[:job_application][:applicant_email]
     expected_remuneration = parse_expected_remuneration
-    @job_application = JobApplication.create_for(applicant_email, @job_offer, expected_remuneration)
+    begin
+      @job_application = JobApplication.create_for(applicant_email, @job_offer,
+                                                   expected_remuneration)
+    rescue StandardError => exception
+      @job_application = JobApplication.create_for(applicant_email, @job_offer)
+      flash.now[:error] = exception.message
+      return render 'job_offers/apply'
+    end
     @job_application.process
     flash[:success] = 'Contact information sent.'
     redirect '/job_offers'

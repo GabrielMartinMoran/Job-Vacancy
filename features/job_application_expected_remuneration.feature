@@ -20,7 +20,7 @@ Feature: Expected remuneration on job application
     Then I should receive a mail with offerer info
     And the job offerer receive a mail with application info
     And expected remuneration in mail is 'Not specified'
-@wip
+
   Scenario: Apply to job offer providing negative expected remuneration
     When I try to apply
     And I fill expected remuneration with -10000.0

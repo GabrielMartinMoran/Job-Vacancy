@@ -7,7 +7,7 @@
   <%= f.label :applicant_email %>
  	<%= f.text_field :applicant_email %>
   <%= f.label :expected_remuneration %>
- 	<%= f.number_field :expected_remuneration, min: 0 %>
+ 	<%= f.number_field :expected_remuneration, step: 0.01 %>
 
 	<hr/>
   <%= f.submit "Apply", :class => "btn btn-primary" %>
