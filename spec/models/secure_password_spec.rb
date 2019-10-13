@@ -22,5 +22,9 @@ describe SecurePassword do
     it 'should return false if password not has a symbol' do
       expect(described_class.is_secure('Password1234')).to eq false
     end
+
+    it 'should return false if password is shorter than 8 characters' do
+      expect(described_class.is_secure('P4ss!$?')).to eq false
+    end
   end
 end

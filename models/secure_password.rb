@@ -5,6 +5,7 @@ class SecurePassword
     !/\d/.match(password).nil? &&
       !/[a-z]/.match(password).nil? &&
       !/[A-Z]/.match(password).nil? &&
-      !VALID_SYMBOLS_REGEX.match(password).nil?
+      !VALID_SYMBOLS_REGEX.match(password).nil? &&
+      password.length > 8
   end
 end
