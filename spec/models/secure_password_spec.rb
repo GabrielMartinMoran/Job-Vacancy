@@ -26,5 +26,9 @@ describe SecurePassword do
     it 'should return false if password is shorter than 8 characters' do
       expect(described_class.is_secure('P4ss!$?')).to eq false
     end
+
+    it 'should return false if password is longer than 20 characters' do
+      expect(described_class.is_secure('Passw0rd!123456789123')).to eq false
+    end
   end
 end
