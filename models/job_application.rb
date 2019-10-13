@@ -5,7 +5,7 @@ class JobApplication
     app = JobApplication.new
     app.applicant_email = email
     app.job_offer = offer
-    if expected_remuneration == '' || expected_remuneration.nil?
+    if expected_remuneration.nil?
       app.expected_remuneration = 'Not specified'
     else
       unless (expected_remuneration.is_a? Numeric) && expected_remuneration.positive?
