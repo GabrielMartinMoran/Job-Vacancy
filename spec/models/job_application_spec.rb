@@ -55,12 +55,22 @@ describe JobApplication do
   end
 
   describe 'process' do
+    it 'should send contact info and applicant apply emails' do
+      ja = described_class.create_for('applicant@test.com', JobOffer.new)
+      expect(JobVacancy::App).to receive(:deliver).twice
+      ja.process
+    end
+  end
+
+  describe 'deliver_contact_info_email' do
     it 'should deliver contact info notification' do
       ja = described_class.create_for('applicant@test.com', JobOffer.new)
       expect(JobVacancy::App).to receive(:deliver).with(:notification, :contact_info_email, ja)
       ja.deliver_contact_info_email
     end
+  end
 
+  describe 'deliver_applicant_apply_email' do
     it 'should deliver applicant apply notification' do
       ja = described_class.create_for('applicant@test.com', JobOffer.new)
       expect(JobVacancy::App).to receive(:deliver).with(:notification, :applicant_apply_email, ja)
