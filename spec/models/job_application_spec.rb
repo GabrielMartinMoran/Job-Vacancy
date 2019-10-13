@@ -41,6 +41,12 @@ describe JobApplication do
       ja = described_class.create_for('applicant@test.com', offer, '')
       expect(ja.expected_remuneration).to eq('Not specified')
     end
+
+    it 'expected remuneration should be "Not specified" if is not provided' do
+      offer = JobOffer.new
+      ja = described_class.create_for('applicant@test.com', offer)
+      expect(ja.expected_remuneration).to eq('Not specified')
+    end
   end
 
   describe 'process' do
