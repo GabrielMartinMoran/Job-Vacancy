@@ -9,7 +9,7 @@ When('I fill expected remuneration with {float}') do |expected_remuneration|
 end
 
 When('I submit application') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_button('Apply')
 end
 
 Then('the job offerer receive a mail with application info') do
