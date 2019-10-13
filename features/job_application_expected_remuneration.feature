@@ -13,7 +13,7 @@ Feature: Expected remuneration on job application
     And I submit application
     Then the job offerer receive a mail with application info
     And expected remuneration in mail is '10000.0'
-@wip
+
   Scenario: Apply to job offer not providing expected remuneration
     When I try to apply
     And I submit application
