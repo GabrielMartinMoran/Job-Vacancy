@@ -18,5 +18,9 @@ describe SecurePassword do
     it 'should return false if password not has a uppercase letter' do
       expect(described_class.is_secure('passw0rd!')).to eq false
     end
+
+    it 'should return false if password not has a symbol' do
+      expect(described_class.is_secure('Password1234')).to eq false
+    end
   end
 end
