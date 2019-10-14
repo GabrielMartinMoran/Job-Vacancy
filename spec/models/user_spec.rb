@@ -86,4 +86,11 @@ describe User do
       expect(user).to have_password(password)
     end
   end
+
+  describe 'validate_password' do
+    it 'should return false when password and password_validation do match' do
+      expect(user.validate_password('Passw0rd!', 'Passw0rd!!')).to eq false
+      expect(user.errors).to have_key(:password)
+    end
+  end
 end

@@ -1,3 +1,5 @@
+require_relative 'secure_password'
+
 class User
   include ActiveModel::Validations
 
@@ -35,5 +37,10 @@ class User
 
   def has_password?(password)
     Crypto.decrypt(crypted_password) == password
+  end
+
+  def validate_password(_password, _password_confirm)
+    errors.add(:password, 'Passwords do not match')
+    false
   end
 end
