@@ -39,8 +39,12 @@ class User
     Crypto.decrypt(crypted_password) == password
   end
 
-  def validate_password(_password, _password_confirm)
-    errors.add(:password, 'Passwords do not match')
-    false
+  def validate_password(password, password_confirm)
+    if password != password_confirm
+      errors.add(:password, 'Passwords do not match')
+      return false
+    end
+
+    true
   end
 end
