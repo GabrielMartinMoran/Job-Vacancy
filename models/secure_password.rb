@@ -1,11 +1,7 @@
 class SecurePassword
-  VALID_SYMBOLS_REGEX = /[¿?¡!#$%+\-_]/
+  VALID_PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[¿?¡!#$%+\-_]).{8,20}$/
 
   def self.is_secure(password)
-    !/\d/.match(password).nil? &&
-      !/[a-z]/.match(password).nil? &&
-      !/[A-Z]/.match(password).nil? &&
-      !VALID_SYMBOLS_REGEX.match(password).nil? &&
-      password.length.between?(8, 20)
+    !VALID_PASSWORD_REGEX.match(password).nil?
   end
 end
