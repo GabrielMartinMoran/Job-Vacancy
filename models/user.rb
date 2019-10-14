@@ -40,9 +40,17 @@ class User
   end
 
   def validate_password(password, password_confirm)
-    if password != password_confirm
-      errors.add(:password, 'Passwords do not match')
-      return false
+    validations_map = [
+      { validation: password == password_confirm, error_message: 'Passwords do not match' },
+      { validation: SecurePassword.is_secure(password), error_message: 'Password must have \
+        between 8 and 20 characters and at leas a number, a lowercase letter, an uppercase letter \
+        and a symbol like ¿ ? ¡ ! # $ % + \\ - _ ' }
+    ]
+    validations_map.each do |x|
+      unless x[:validation]
+        errors.add(:password, x[:error_message])
+        return false
+      end
     end
 
     true

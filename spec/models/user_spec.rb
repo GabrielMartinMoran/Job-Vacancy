@@ -97,5 +97,10 @@ describe User do
       expect(user.validate_password('Passw0rd!', 'Passw0rd!')).to eq true
       expect(user.errors).not_to have_key(:password)
     end
+
+    it 'should return true when password and password match but are not strong enought' do
+      expect(user.validate_password('password', 'password')).to eq false
+      expect(user.errors).to have_key(:password)
+    end
   end
 end
