@@ -10,16 +10,12 @@ JobVacancy::App.controllers :users do
 
     @user = User.new(params[:user])
 
-    if params[:user][:password] == password_confirmation
-      if UserRepository.new.save(@user)
-        flash[:success] = 'User created'
-        redirect '/'
-      else
-        flash.now[:error] = (@user.errors.messages.map { |_key, value| value }).uniq.join(', ')
-        render 'users/new'
-      end
+    if @user.validate_password(params[:user][:password], password_confirmation) &&
+       UserRepository.new.save(@user)
+      flash[:success] = 'User created'
+      redirect '/'
     else
-      flash.now[:error] = 'Passwords do not match'
+      flash.now[:error] = (@user.errors.messages.map { |_key, value| value }).uniq.join(', ')
       render 'users/new'
     end
   end

@@ -42,8 +42,8 @@ class User
   def validate_password(password, password_confirm)
     validations_map = [
       { validation: password == password_confirm, error_message: 'Passwords do not match' },
-      { validation: SecurePassword.is_secure(password), error_message: 'Password must have \
-        between 8 and 20 characters and at leas a number, a lowercase letter, an uppercase letter \
+      { validation: SecurePassword.is_secure(password), error_message: 'Password must have
+        between 8 and 20 characters and at least a number, a lowercase letter, an uppercase letter
         and a symbol like ¿ ? ¡ ! # $ % + \\ - _ ' }
     ]
     validations_map.each do |x|
