@@ -1,5 +1,5 @@
 class JobApplication
-  attr_accessor :applicant_email, :job_offer, :expected_remuneration
+  attr_accessor :id, :applicant_email, :job_offer, :expected_remuneration
 
   def self.create_for(email, offer, expected_remuneration = nil)
     app = JobApplication.new
