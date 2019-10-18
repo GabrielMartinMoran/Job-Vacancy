@@ -17,4 +17,12 @@ class UserRepository < BaseRepository
       short_bio: user.short_bio
     }
   end
+
+  def insert(user)
+    unless DB[self.class.table_name][{ email: user.email }].nil?
+      raise StandardError, 'User email must be unique'
+    end
+
+    super(user)
+  end
 end
