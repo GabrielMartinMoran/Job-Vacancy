@@ -17,4 +17,10 @@ class UserRepository < BaseRepository
       short_bio: user.short_bio
     }
   end
+
+  def insert(a_record)
+    super(a_record)
+  rescue Sequel::UniqueConstraintViolation
+    raise StandardError, 'User email must be unique'
+  end
 end

@@ -14,7 +14,8 @@ describe UserRepository do
     it 'should raise exception if creating new user with used email' do
       new_user = User.new(name: 'user_02', email: registered_user.email,
                           crypted_password: 'secure_pwd', short_bio: 'A' * 50)
-      expect { repository.save(new_user) }.to raise_exception
+      expect { repository.save(new_user) }
+        .to raise_exception(StandardError, 'User email must be unique')
     end
   end
 end
