@@ -7,8 +7,14 @@ When('User {string} tries to register') do |email|
   click_button('Create')
 end
 
-Given('User {string} is already registered') do |_email|
-  pending # Write code here that turns the phrase above into concrete actions
+Given('User {string} is already registered') do |email|
+  @user = User.new
+  @user.name = 'UserName'
+  @user.email = email
+  @user.crypted_password = 'PassW0rd!123'
+  @user.short_bio = 'A' * 50
+
+  UserRepository.new.save @user
 end
 
 Then('User should be registered succesfully') do
