@@ -10,8 +10,16 @@ JobVacancy::App.controllers :users do
 
     @user = User.new(params[:user])
 
-    if @user.validate_password(params[:user][:password], password_confirmation) &&
-       UserRepository.new.save(@user)
+    could_create_user = @user.validate_password(params[:user][:password], password_confirmation)
+
+    begin
+      could_create_user &&= UserRepository.new.save(@user)
+    rescue StandardError
+      flash.now[:error] = 'An user with same email is already registered'
+      return render 'users/new'
+    end
+
+    if could_create_user
       flash[:success] = 'User created'
       redirect '/'
     else

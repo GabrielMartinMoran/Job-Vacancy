@@ -10,7 +10,6 @@ Feature: Registration user unique
     When User "user@test.com" tries to register
     Then User should be registered succesfully
 
-  @wip
   Scenario: Registration when an user is already registered
     Given User "user02@test.com" is already registered
     When User "user02@test.com" tries to register

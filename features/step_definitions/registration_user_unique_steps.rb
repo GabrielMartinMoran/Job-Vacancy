@@ -23,5 +23,5 @@ Then('User should be registered succesfully') do
 end
 
 Then('User should see a message indicating error user is already registered') do
-  pending # Write code here that turns the phrase above into concrete actions
+  page.should have_content('An user with same email is already registered')
 end
