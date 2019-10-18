@@ -6,10 +6,9 @@ Feature: Registration user unique
   Background:
     Given User acceses to the register page
 
-  @wip
   Scenario: Registration when an user is not previously registered
     When User "user@test.com" tries to register
-    Then I should be able to login
+    Then User should be registered succesfully
 
   @wip
   Scenario: Registration when an user is already registered
