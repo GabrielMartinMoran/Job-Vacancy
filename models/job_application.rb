@@ -1,5 +1,8 @@
 class JobApplication
-  attr_accessor :id, :applicant_email, :job_offer, :expected_remuneration
+  include ActiveModel::Validations
+
+  attr_accessor :id, :applicant_email, :job_offer, :expected_remuneration,
+                :updated_on, :created_on
 
   def initialize(data = {})
     @id = data[:id]
