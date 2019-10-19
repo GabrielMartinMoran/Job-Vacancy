@@ -37,9 +37,9 @@ describe JobApplicationRepository do
   end
 
   describe 'find_by_job_offer_id' do
-    it 'should return nil if there is no job applications for provided job_offer_id' do
+    it 'should return empty array if there is no job applications for provided job_offer_id' do
       obtained = repository.find_by_job_offer_id(-99_999)
-      expect(obtained).to eq nil
+      expect(obtained).to eq []
     end
   end
 end
