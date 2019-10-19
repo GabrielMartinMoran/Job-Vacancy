@@ -14,7 +14,7 @@ class JobApplicationRepository < BaseRepository
   def changeset(job_application)
     {
       applicant_email: job_application.applicant_email,
-      job_offer_id: job_application.job_offer.id,
+      job_offer_id: job_application.job_offer.id || job_application.job_offer_id,
       expected_remuneration: job_application.expected_remuneration
     }
   end
