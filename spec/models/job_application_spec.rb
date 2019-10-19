@@ -8,6 +8,8 @@ describe JobApplication do
     it { is_expected.to respond_to(:applicant_email) }
     it { is_expected.to respond_to(:job_offer) }
     it { is_expected.to respond_to(:expected_remuneration) }
+    it { is_expected.to respond_to(:created_on) }
+    it { is_expected.to respond_to(:updated_on) }
   end
 
   describe 'initialize' do
