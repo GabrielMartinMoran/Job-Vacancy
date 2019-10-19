@@ -24,14 +24,11 @@ class JobApplication
   private
 
   def obtain_expected_remuneration(expected_remuneration)
-    if expected_remuneration.nil?
-      'Not specified'
-    else
-      unless (expected_remuneration.is_a? Numeric) && expected_remuneration.positive?
-        raise StandardError, 'Expected remuneration must be a number greater than zero'
-      end
-
-      expected_remuneration
+    unless expected_remuneration.nil? ||
+           ((expected_remuneration.is_a? Numeric) && expected_remuneration.positive?)
+      raise StandardError, 'Expected remuneration must be a number greater than zero'
     end
+
+    expected_remuneration
   end
 end

@@ -54,10 +54,10 @@ describe JobApplication do
       end .to raise_exception
     end
 
-    it 'expected remuneration should be "Not specified" if is not provided' do
+    it 'expected remuneration should be nil if is not provided' do
       offer = JobOffer.new
       ja = described_class.new(applicant_email: 'applicant@test.com', job_offer: offer)
-      expect(ja.expected_remuneration).to eq('Not specified')
+      expect(ja.expected_remuneration).to eq(nil)
     end
   end
 

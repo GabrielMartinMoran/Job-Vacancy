@@ -28,7 +28,6 @@ JobVacancy::App.controllers :job_offers do
   get :apply, with: :offer_id do
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
     @job_application = JobApplication.new
-    @job_application.expected_remuneration = nil
     # TODO: validate the current user is the owner of the offer
     render 'job_offers/apply'
   end
