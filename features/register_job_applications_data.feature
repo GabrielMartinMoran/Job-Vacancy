@@ -5,7 +5,9 @@ Feature: Register job applications data
 
   Background:
     Given only a "Web Programmer" offer exists in the offers list
+    And applicant access the offers list page
 
+  @wip
   Scenario: Register job application data
     When Applicant 'user@test.com' applies with expected remuneration 10000.0
     Then Email 'user@test.com' and expected remuneration 10000.0 should be stored for "Web Programmer" offer
