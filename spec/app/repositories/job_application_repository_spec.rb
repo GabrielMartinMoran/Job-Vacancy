@@ -19,14 +19,20 @@ describe JobApplicationRepository do
     offer
   end
 
+  let!(:job_application) do
+    job_application = JobApplication.new(applicant_email: 'applicant@test.com',
+                                         expected_remuneration: 9999.9,
+                                         job_offer: offer)
+    repository.save(job_application)
+    job_application
+  end
+
   describe 'find' do
     it 'job application should be obtained if saved in database' do
-      ja = JobApplication.new(applicant_email: 'applicant@test.com', expected_remuneration: 9999.9,
-                              job_offer: offer)
-      repository.save(ja)
-
-      obtained = repository.find(ja.id)
-      expect(obtained.applicant_email).to eq ja.applicant_email
+      obtained = repository.find(job_application.id)
+      expect(obtained.applicant_email).to eq job_application.applicant_email
+      expect(obtained.expected_remuneration).to eq job_application.expected_remuneration
+      expect(obtained.job_offer.id).to eq job_application.job_offer.id
     end
   end
 end
