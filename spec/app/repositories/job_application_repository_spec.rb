@@ -35,4 +35,11 @@ describe JobApplicationRepository do
       expect(obtained.job_offer.id).to eq job_application.job_offer.id
     end
   end
+
+  describe 'find_by_job_offer_id' do
+    it 'should return nil if there is no job applications for provided job_offer_id' do
+      obtained = repository.find_by_job_offer_id(-99_999)
+      expect(obtained).to eq nil
+    end
+  end
 end

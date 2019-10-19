@@ -2,6 +2,10 @@ class JobApplicationRepository < BaseRepository
   self.table_name = :job_applications
   self.model_class = 'JobApplication'
 
+  def find_by_job_offer_id(_job_offer_id)
+    nil
+  end
+
   protected
 
   def load_object(a_record)
