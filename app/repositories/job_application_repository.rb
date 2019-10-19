@@ -2,8 +2,8 @@ class JobApplicationRepository < BaseRepository
   self.table_name = :job_applications
   self.model_class = 'JobApplication'
 
-  def find_by_job_offer_id(_job_offer_id)
-    []
+  def find_by_job_offer_id(job_offer_id)
+    load_collection(dataset.where(job_offer_id: job_offer_id))
   end
 
   protected
