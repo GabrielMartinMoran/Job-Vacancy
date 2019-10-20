@@ -55,4 +55,8 @@ class User
 
     true
   end
+
+  def locked?
+    true
+  end
 end

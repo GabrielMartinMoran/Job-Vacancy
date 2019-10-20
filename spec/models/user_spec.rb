@@ -105,4 +105,11 @@ describe User do
       expect(user.errors).to have_key(:password)
     end
   end
+
+  describe 'locked?' do
+    it 'should return true if last_lock_date is less than 24h' do
+      user.last_lock_date = DateTime.now
+      expect(user.locked?).to eq true
+    end
+  end
 end
