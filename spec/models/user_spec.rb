@@ -12,7 +12,7 @@ describe User do
     it { is_expected.to respond_to(:email) }
     it { is_expected.to respond_to(:job_offers) }
     it { is_expected.to respond_to(:short_bio) }
-    it { is_expected.to respond_to(:login_failed_attemps) }
+    it { is_expected.to respond_to(:login_failed_attempts) }
     it { is_expected.to respond_to(:last_lock_date) }
   end
 
@@ -119,6 +119,14 @@ describe User do
 
     it 'should return false if last_lock_date is nil' do
       expect(user.locked?).to eq false
+    end
+  end
+
+  describe 'add_login_failed_attempt' do
+    it 'should set login_failed_attempts as 1 if login_failed_attempts was 0' do
+      user.add_login_failed_attempt
+      expect(user.login_failed_attempts).to eq 1
+      expect(user.last_lock_date).to eq nil
     end
   end
 end
