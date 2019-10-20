@@ -111,5 +111,10 @@ describe User do
       user.last_lock_date = DateTime.now
       expect(user.locked?).to eq true
     end
+
+    it 'should return false if last_lock_date is more than 24h' do
+      user.last_lock_date = DateTime.now - 2
+      expect(user.locked?).to eq false
+    end
   end
 end

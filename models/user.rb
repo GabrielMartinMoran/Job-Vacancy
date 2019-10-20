@@ -9,6 +9,7 @@ class User
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   MIN_LENGTH_VALID_BIO = 50
   MAX_LENGTH_VALID_BIO = 500
+  MIN_LOCKED_HOURS = 24
 
   validates :name, :crypted_password, :email,
             presence: { message: 'All fields are mandatory' }
@@ -57,6 +58,6 @@ class User
   end
 
   def locked?
-    true
+    ((DateTime.now - @last_lock_date) * 24).round < MIN_LOCKED_HOURS
   end
 end
