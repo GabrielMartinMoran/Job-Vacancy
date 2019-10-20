@@ -1,20 +1,15 @@
 class JobApplication
-  attr_accessor :applicant_email, :job_offer, :expected_remuneration
+  include ActiveModel::Validations
 
-  def self.create_for(email, offer, expected_remuneration = nil)
-    app = JobApplication.new
-    app.applicant_email = email
-    app.job_offer = offer
-    if expected_remuneration.nil?
-      app.expected_remuneration = 'Not specified'
-    else
-      unless (expected_remuneration.is_a? Numeric) && expected_remuneration.positive?
-        raise StandardError, 'Expected remuneration must be a number greater than zero'
-      end
+  attr_accessor :id, :applicant_email, :job_offer, :expected_remuneration,
+                :updated_on, :created_on, :job_offer_id
 
-      app.expected_remuneration = expected_remuneration
-    end
-    app
+  def initialize(data = {})
+    @id = data[:id]
+    @applicant_email = data[:applicant_email]
+    @job_offer = data[:job_offer]
+    @job_offer_id = data[:job_offer_id]
+    @expected_remuneration = obtain_expected_remuneration(data[:expected_remuneration])
   end
 
   def process
@@ -28,5 +23,16 @@ class JobApplication
 
   def deliver_applicant_apply_email
     JobVacancy::App.deliver(:notification, :applicant_apply_email, self)
+  end
+
+  private
+
+  def obtain_expected_remuneration(expected_remuneration)
+    unless expected_remuneration.nil? ||
+           ((expected_remuneration.is_a? Numeric) && expected_remuneration.positive?)
+      raise StandardError, 'Expected remuneration must be a number greater than zero'
+    end
+
+    expected_remuneration
   end
 end

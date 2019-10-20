@@ -42,10 +42,13 @@ JobVacancy::App.controllers :job_offers do
     applicant_email = params[:job_application][:applicant_email]
     expected_remuneration = parse_expected_remuneration
     begin
-      @job_application = JobApplication.create_for(applicant_email, @job_offer,
-                                                   expected_remuneration)
+      @job_application = JobApplication.new(applicant_email: applicant_email,
+                                            job_offer: @job_offer,
+                                            expected_remuneration: expected_remuneration)
+      JobApplicationRepository.new.save(@job_application)
     rescue StandardError => exception
-      @job_application = JobApplication.create_for(applicant_email, @job_offer)
+      @job_application = JobApplication.new(applicant_email: applicant_email,
+                                            job_offer: @job_offer)
       flash.now[:error] = exception.message
       return render 'job_offers/apply'
     end
