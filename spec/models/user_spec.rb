@@ -12,6 +12,8 @@ describe User do
     it { is_expected.to respond_to(:email) }
     it { is_expected.to respond_to(:job_offers) }
     it { is_expected.to respond_to(:short_bio) }
+    it { is_expected.to respond_to(:login_failed_attemps) }
+    it { is_expected.to respond_to(:last_lock_date) }
   end
 
   describe 'valid?' do

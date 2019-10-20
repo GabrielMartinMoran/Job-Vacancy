@@ -4,7 +4,7 @@ class User
   include ActiveModel::Validations
 
   attr_accessor :id, :name, :email, :crypted_password, :job_offers, :updated_on, :created_on,
-                :short_bio
+                :short_bio, :login_failed_attemps, :last_lock_date
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   MIN_LENGTH_VALID_BIO = 50
