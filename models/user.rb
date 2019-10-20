@@ -31,7 +31,7 @@ class User
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
     @short_bio = data[:short_bio]
-    @login_failed_attempts = data[:login_failed_attempts] || 0
+    load_lock_data(data)
   end
 
   def has_password?(password)
@@ -78,5 +78,10 @@ class User
     else
       Crypto.encrypt(password)
     end
+  end
+
+  def load_lock_data(data)
+    @login_failed_attempts = data[:login_failed_attempts] || 0
+    @last_lock_date = data[:last_lock_date]
   end
 end
