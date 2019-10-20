@@ -58,6 +58,8 @@ class User
   end
 
   def locked?
+    return false if @last_lock_date.nil?
+
     ((DateTime.now - @last_lock_date) * 24).round < MIN_LOCKED_HOURS
   end
 end

@@ -116,5 +116,9 @@ describe User do
       user.last_lock_date = DateTime.now - 2
       expect(user.locked?).to eq false
     end
+
+    it 'should return false if last_lock_date is nil' do
+      expect(user.locked?).to eq false
+    end
   end
 end
