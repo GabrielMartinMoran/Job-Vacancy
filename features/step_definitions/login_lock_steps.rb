@@ -1,5 +1,6 @@
-Given('User is registered with email {string} and password {string}') do |_string, _string2|
-  pending # Write code here that turns the phrase above into concrete actions
+Given('User is registered with email {string} and password {string}') do |email, password|
+  @user = User.new(name: 'UserName', email: email, short_bio: 'A' * 50, password: password)
+  UserRepository.new.save @user
 end
 
 When('I try to acces with email {string} and wrong password {int} times') do |_string, _int|
