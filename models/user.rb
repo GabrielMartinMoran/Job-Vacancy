@@ -25,15 +25,12 @@ class User
     @id = data[:id]
     @name = data[:name]
     @email = data[:email]
-    @crypted_password = if data[:password].nil?
-                          data[:crypted_password]
-                        else
-                          Crypto.encrypt(data[:password])
-                        end
+    @crypted_password = obtain_crypted_password(data[:password], data[:crypted_password])
     @job_offers = data[:job_offers]
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
     @short_bio = data[:short_bio]
+    @login_failed_attempts = data[:login_failed_attempts] || 0
   end
 
   def has_password?(password)
@@ -64,6 +61,16 @@ class User
   end
 
   def add_login_failed_attempt
-    @login_failed_attempts = 1
+    @login_failed_attempts += 1
+  end
+
+  private
+
+  def obtain_crypted_password(password, crypted_password)
+    if password.nil?
+      crypted_password
+    else
+      Crypto.encrypt(password)
+    end
   end
 end

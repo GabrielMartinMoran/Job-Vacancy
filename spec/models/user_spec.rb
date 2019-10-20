@@ -128,5 +128,12 @@ describe User do
       expect(user.login_failed_attempts).to eq 1
       expect(user.last_lock_date).to eq nil
     end
+
+    it 'should set login_failed_attempts as 2 if login_failed_attempts was 1' do
+      user.login_failed_attempts = 1
+      user.add_login_failed_attempt
+      expect(user.login_failed_attempts).to eq 2
+      expect(user.last_lock_date).to eq nil
+    end
   end
 end
