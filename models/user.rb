@@ -10,6 +10,7 @@ class User
   MIN_LENGTH_VALID_BIO = 50
   MAX_LENGTH_VALID_BIO = 500
   MIN_LOCKED_HOURS = 24
+  MAX_LOGIN_FAILED_ATTEMPS = 3
 
   validates :name, :crypted_password, :email,
             presence: { message: 'All fields are mandatory' }
@@ -62,6 +63,11 @@ class User
 
   def add_login_failed_attempt
     @login_failed_attempts += 1
+
+    return unless @login_failed_attempts >= MAX_LOGIN_FAILED_ATTEMPS
+
+    @login_failed_attempts = 0
+    @last_lock_date = DateTime.now
   end
 
   private

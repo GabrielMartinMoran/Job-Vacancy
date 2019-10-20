@@ -135,5 +135,12 @@ describe User do
       expect(user.login_failed_attempts).to eq 2
       expect(user.last_lock_date).to eq nil
     end
+
+    it 'should set login_failed_attempts as 0 and last_lock_date to now if login_failed_attempts was 2' do # rubocop:disable LineLength
+      user.login_failed_attempts = 2
+      user.add_login_failed_attempt
+      expect(user.login_failed_attempts).to eq 0
+      expect(user.last_lock_date.utc.to_i).to eq(DateTime.now.utc.to_i)
+    end
   end
 end
