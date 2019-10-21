@@ -10,8 +10,9 @@ Given('{string} offer exists in the offers list with tags {string}') do |offer, 
   JobOfferRepository.new.save @job_offer
 end
 
-When('I apply to {string} offer') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+When('I apply to {string} offer') do |offer|
+  job_offer_id = JobOfferRepository.new.search_by_title(offer).first.id
+  visit '/job_offers/apply/' + job_offer_id.to_s
 end
 
 Then('I should see {int} suggested offers') do |_int|
