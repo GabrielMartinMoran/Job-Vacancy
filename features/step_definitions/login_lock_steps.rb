@@ -21,10 +21,13 @@ Then('An error indicating that the account is locked should be displayed if user
   page.should have_content('This account is locked')
 end
 
-Given('User with email {string} is locked') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+Given('User with email {string} is locked') do |email|
+  @user = User.new(name: 'UserName', email: email, short_bio: 'A' * 50, password: @password,
+                   last_lock_date: DateTime.now)
+  UserRepository.new.save @user
+  @user.locked?.should be true
 end
 
-When('{int} hours passed') do |_int|
-  pending # Write code here that turns the phrase above into concrete actions
+When('{int} hours passed') do |hours|
+  Timecop.travel(Date.today + hours / 24)
 end
