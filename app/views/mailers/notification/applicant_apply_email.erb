@@ -1,0 +1,10 @@
+Job Vacancy Board
+=================
+
+<%= job_application.applicant_email %> has appied to the following offer:
+
+* Title: <%= job_application.job_offer.title %>
+* Location: <%= job_application.job_offer.location %>
+* Description: <%= job_application.job_offer.description %>
+
+Expected Remuneration: <%= job_application.expected_remuneration || 'Not specified' %>

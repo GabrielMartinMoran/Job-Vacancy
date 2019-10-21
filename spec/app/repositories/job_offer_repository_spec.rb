@@ -4,7 +4,8 @@ describe JobOfferRepository do
   let(:repository) { described_class.new }
 
   let(:owner) do
-    user = User.new(name: 'Joe', email: 'joe@doe.com', crypted_password: 'secure_pwd')
+    user = User.new(name: 'Joe', email: 'joe@doe.com', crypted_password: 'secure_pwd',
+                    short_bio: 'A' * 50)
     UserRepository.new.save(user)
     user
   end

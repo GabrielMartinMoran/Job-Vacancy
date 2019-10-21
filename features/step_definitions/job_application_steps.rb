@@ -9,7 +9,7 @@ Given(/^only a "(.*?)" offer exists in the offers list$/) do |job_title|
   JobOfferRepository.new.save @job_offer
 end
 
-Given(/^I access the offers list page$/) do
+Given(/^(I|\w+) access the offers list page$/) do |_who|
   visit '/job_offers'
 end
 

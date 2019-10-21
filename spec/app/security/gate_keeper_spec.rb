@@ -7,7 +7,8 @@ describe GateKeeper do
   let(:invalid_password) { 'invalid_pwd' }
 
   let(:current_user) do
-    user = User.new(name: 'Joe', email: 'joe@doe.com', password: valid_password)
+    user = User.new(name: 'Joe', email: 'joe@doe.com', password: valid_password,
+                    short_bio: 'A' * 50)
     UserRepository.new.save(user)
     user
   end

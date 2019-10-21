@@ -13,7 +13,18 @@ class UserRepository < BaseRepository
     {
       name: user.name,
       crypted_password: user.crypted_password,
-      email: user.email
+      email: user.email,
+      short_bio: user.short_bio,
+      login_failed_attempts: user.login_failed_attempts,
+      last_lock_date: user.last_lock_date
     }
+  end
+
+  def insert(user)
+    unless DB[self.class.table_name][{ email: user.email }].nil?
+      raise StandardError, 'User email must be unique'
+    end
+
+    super(user)
   end
 end

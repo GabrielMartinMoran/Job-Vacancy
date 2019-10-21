@@ -1,9 +1,15 @@
+require_relative 'tags_normalizer'
+
+MAX_TAGS_QUANTITY = 3
+
 class JobOffer
   include ActiveModel::Validations
 
   attr_accessor :id, :user, :user_id, :title,
                 :location, :description, :is_active,
-                :updated_on, :created_on
+                :updated_on, :created_on, :tags
+
+  attr_reader :has_valid_tags
 
   validates :title, presence: true
 
@@ -16,6 +22,15 @@ class JobOffer
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
     @user_id = data[:user_id]
+    parse_tags(data[:tags])
+  end
+
+  def parse_tags(tags)
+    @has_valid_tags = true
+    @tags = TagsNormalizer.new(MAX_TAGS_QUANTITY).normalize(tags || '')
+  rescue StandardError
+    @has_valid_tags = false
+    errors.add(:tags, 'Too much tags')
   end
 
   def owner
