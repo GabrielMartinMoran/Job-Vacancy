@@ -8,6 +8,12 @@ JobVacancy::App.controllers :sessions do
     email = params[:user][:email]
     password = params[:user][:password]
 
+    user_by_email = UserRepository.new.find_by_email(email)
+    if !user_by_email.nil? && user_by_email.locked?
+      flash[:error] = 'This account is locked'
+      return redirect '/login'
+    end
+
     gate_keeper = GateKeeper.new.authenticate(email, password)
 
     gate_keeper.when_succeed do |user|
@@ -17,6 +23,10 @@ JobVacancy::App.controllers :sessions do
     end
 
     gate_keeper.when_failed do
+      if !user_by_email.nil? && !user_by_email.locked?
+        user_by_email.add_login_failed_attempt
+        UserRepository.new.save(user_by_email)
+      end
       @user = User.new
       flash[:error] = 'Invalid credentials'
       redirect '/login'

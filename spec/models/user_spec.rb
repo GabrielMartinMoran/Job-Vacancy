@@ -12,6 +12,8 @@ describe User do
     it { is_expected.to respond_to(:email) }
     it { is_expected.to respond_to(:job_offers) }
     it { is_expected.to respond_to(:short_bio) }
+    it { is_expected.to respond_to(:login_failed_attempts) }
+    it { is_expected.to respond_to(:last_lock_date) }
   end
 
   describe 'valid?' do
@@ -101,6 +103,44 @@ describe User do
     it 'should return true when password and password match but are not strong enought' do
       expect(user.validate_password('password', 'password')).to eq false
       expect(user.errors).to have_key(:password)
+    end
+  end
+
+  describe 'locked?' do
+    it 'should return true if last_lock_date is less than 24h' do
+      user.last_lock_date = DateTime.now
+      expect(user.locked?).to eq true
+    end
+
+    it 'should return false if last_lock_date is more than 24h' do
+      user.last_lock_date = DateTime.now - 2
+      expect(user.locked?).to eq false
+    end
+
+    it 'should return false if last_lock_date is nil' do
+      expect(user.locked?).to eq false
+    end
+  end
+
+  describe 'add_login_failed_attempt' do
+    it 'should set login_failed_attempts as 1 if login_failed_attempts was 0' do
+      user.add_login_failed_attempt
+      expect(user.login_failed_attempts).to eq 1
+      expect(user.last_lock_date).to eq nil
+    end
+
+    it 'should set login_failed_attempts as 2 if login_failed_attempts was 1' do
+      user.login_failed_attempts = 1
+      user.add_login_failed_attempt
+      expect(user.login_failed_attempts).to eq 2
+      expect(user.last_lock_date).to eq nil
+    end
+
+    it 'should set login_failed_attempts as 0 and last_lock_date to now if login_failed_attempts was 2' do # rubocop:disable LineLength
+      user.login_failed_attempts = 2
+      user.add_login_failed_attempt
+      expect(user.login_failed_attempts).to eq 0
+      expect(user.last_lock_date.utc.to_i).to eq(DateTime.now.utc.to_i)
     end
   end
 end
