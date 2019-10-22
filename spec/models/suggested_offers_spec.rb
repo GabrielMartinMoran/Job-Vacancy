@@ -52,5 +52,12 @@ describe SuggestedOffers do
       suggested_offers.add([job_offer1, job_offer2, job_offer3, job_offer4])
       expect(suggested_offers.obtain.size).to eq(3)
     end
+
+    it 'should return offers in array sorted by number of tag matches' do
+      job_offer1 = JobOffer.new(title: 'a title', tags: 'ruby')
+      job_offer2 = JobOffer.new(title: 'a title', tags: 'programmer,web')
+      suggested_offers.add([job_offer1, job_offer2])
+      expect(suggested_offers.obtain).to eq([job_offer2, job_offer1])
+    end
   end
 end
