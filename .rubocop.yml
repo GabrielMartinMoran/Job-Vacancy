@@ -6,7 +6,7 @@ MethodLength:
 Metrics/BlockLength:
   ExcludedMethods: ['controllers', 'describe', 'context']
 Metrics/LineLength:
-  Max: 100
+  Max: 120
   IgnoredPatterns: ['(When|Given|Then)', '(get|post|put)']
 Naming/PredicateName:
   Enabled: false
@@ -26,3 +26,5 @@ RSpec/MessageSpies:
   EnforcedStyle: receive
 RSpec/MultipleExpectations:
   Max: 3
+RSpec/ExampleLength:
+  Max: 10
