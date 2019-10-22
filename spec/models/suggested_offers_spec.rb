@@ -28,5 +28,12 @@ describe SuggestedOffers do
       suggested_offers.add([job_offer])
       expect(suggested_offers.obtain).to eq [job_offer]
     end
+
+    it 'should return two offers in array when two offers match some tags' do
+      job_offer1 = JobOffer.new(title: 'a title', tags: 'ruby')
+      job_offer2 = JobOffer.new(title: 'a title', tags: 'programmer')
+      suggested_offers.add([job_offer1, job_offer2])
+      expect(suggested_offers.obtain).to include(job_offer1, job_offer2)
+    end
   end
 end
