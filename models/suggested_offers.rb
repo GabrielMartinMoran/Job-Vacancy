@@ -1,15 +1,18 @@
 class SuggestedOffers
   def initialize(job_offer)
-    @main_offer = job_offer
+    @main_offer_tags = job_offer.tags.split(',')
     @all_offers = []
   end
 
   def obtain
-    result = []
+    result = Set.new
     @all_offers.each do |job_offer|
-      result.append(job_offer) if job_offer.tags == @main_offer.tags
+      job_offer_tags = job_offer.tags.split(',')
+      job_offer_tags.each do |tag|
+        result.add(job_offer) if @main_offer_tags.include?(tag)
+      end
     end
-    result
+    result.to_a
   end
 
   def add(job_offers)

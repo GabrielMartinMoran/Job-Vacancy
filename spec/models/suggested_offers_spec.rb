@@ -22,5 +22,11 @@ describe SuggestedOffers do
       suggested_offers.add([job_offer])
       expect(suggested_offers.obtain).to eq [job_offer]
     end
+
+    it 'should return one offer in array when one offer match some tag' do
+      job_offer = JobOffer.new(title: 'a title', tags: 'ruby')
+      suggested_offers.add([job_offer])
+      expect(suggested_offers.obtain).to eq [job_offer]
+    end
   end
 end
