@@ -20,5 +20,6 @@ Then('I should see {int} suggested offers') do |quantity|
 end
 
 Then('Suggested offer link should redirect to suggested offer apply page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_link('View suggested offer')
+  assert_current_path("/job_offers/apply/#{@job_offer.id}")
 end

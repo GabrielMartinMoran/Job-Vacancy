@@ -33,7 +33,6 @@ Feature: Suggested offers on application
     When I apply to "Ruby Web Programmer" offer
     Then I should see 3 suggested offers
 
-  @wip
   Scenario: A suggested offer is displayed if only the tags of one offer match
     Given "Python Programmer" offer exists in the offers list with tags "programmer,python"
     When I apply to "Ruby Web Programmer" offer
