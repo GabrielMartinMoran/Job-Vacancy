@@ -15,8 +15,8 @@ When('I apply to {string} offer') do |offer|
   visit '/job_offers/apply/' + job_offer_id.to_s
 end
 
-Then('I should see {int} suggested offers') do |_int|
-  pending # Write code here that turns the phrase above into concrete actions
+Then('I should see {int} suggested offers') do |quantity|
+  page.should have_content('View suggested offer', count: quantity)
 end
 
 Then('Suggested offer link should redirect to suggested offer apply page') do

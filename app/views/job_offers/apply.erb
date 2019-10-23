@@ -19,12 +19,13 @@
     <th>Title</th>
 		<th>Location</th>
     <th>Description</th>
+    <th>Actions</th>
 	</tr>
 	<% @suggested_offers.each do | suggested_offer| %>
 
 	<tr>
 		<td>
-			<%= link_to suggested_offer.title, url_for(:job_offers, :apply, :offer_id => suggested_offer.id) %>
+			<%= suggested_offer.title %>
     </td>	
 		<td>
 			<%= suggested_offer.location %>
@@ -32,6 +33,9 @@
 		<td>
 			<%= suggested_offer.description %>
 		</td>
+    <td>
+			<%= link_to 'View suggested offer', url_for(:job_offers, :apply, :offer_id => suggested_offer.id), :class => "btn btn-secondary" %>
+    </td>	
 	</tr>
   
 
