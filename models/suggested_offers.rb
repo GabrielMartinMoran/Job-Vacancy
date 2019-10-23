@@ -2,6 +2,7 @@ MAX_SUGGESTIONS = 3
 
 class SuggestedOffers
   def initialize(job_offer)
+    @job_offer_id = job_offer.id
     @main_offer_tags = job_offer.tags.split(',')
     @all_offers = Set.new
   end
@@ -13,7 +14,9 @@ class SuggestedOffers
   end
 
   def add(job_offers)
-    job_offers.each { |job_offer| @all_offers.add(job_offer) }
+    job_offers.each do |job_offer|
+      @all_offers.add(job_offer) if @job_offer_id != job_offer.id
+    end
   end
 
   private

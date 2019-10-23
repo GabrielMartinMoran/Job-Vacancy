@@ -28,6 +28,7 @@ JobVacancy::App.controllers :job_offers do
   get :apply, with: :offer_id do
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
     @job_application = JobApplication.new
+    @suggested_offers = JobOfferRepository.new.search_by_tags(@job_offer.tags)
     # TODO: validate the current user is the owner of the offer
     render 'job_offers/apply'
   end
@@ -41,6 +42,7 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
     applicant_email = params[:job_application][:applicant_email]
     expected_remuneration = parse_expected_remuneration
+    @suggested_offers = []
     begin
       @job_application = JobApplication.new(applicant_email: applicant_email,
                                             job_offer: @job_offer,
