@@ -19,6 +19,19 @@ class JobOfferRepository < BaseRepository
     end
   end
 
+  def search_by_tags(tags)
+    tags_array = tags.split(',')
+    return [] if tags_array.empty?
+
+    seq = Sequel.like(:tags, "%#{tags_array[0]}%")
+    if tags_array.size > 1
+      (1..(tags_array.size - 1)).each do |index|
+        seq |= Sequel.like(:tags, "%#{tags_array[index]}%")
+      end
+    end
+    load_collection dataset.where(seq)
+  end
+
   def search_by_title(title)
     load_collection dataset.where(Sequel.like(:title, "%#{title}%"))
   end
