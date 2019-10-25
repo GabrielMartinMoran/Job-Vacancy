@@ -5,7 +5,7 @@ Feature: Job offer view job applications quantity
 
   Background:
     Given I am logged in as job offerer      
-    And only a "Web Programmer" offer exists in my offers
+    And only a "Web Programmer" offer exists in the offers list
 
   Scenario: Job applications is zero when nobody has applied to the offer
     Given 0 users apply to "Web Programmer" offer
