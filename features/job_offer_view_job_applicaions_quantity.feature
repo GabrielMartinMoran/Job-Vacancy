@@ -12,7 +12,6 @@ Feature: Job offer view job applications quantity
     When I access to my offers page
     Then I should see 0 job applications for "Web Programmer" offer
 
-  @wip
   Scenario: Job applications displays number of postulated applicants
     Given 4 users apply to "Web Programmer" offer
     When I access to my offers page
