@@ -16,10 +16,10 @@ When('I apply to {string} offer') do |offer|
 end
 
 Then('I should see {int} suggested offers') do |quantity|
-  page.should have_content('View suggested offer', count: quantity)
+  page.should have_content('Apply', count: quantity)
 end
 
 Then('Suggested offer link should redirect to suggested offer apply page') do
-  click_link('View suggested offer')
+  click_link('Apply')
   assert_current_path("/job_offers/apply/#{@job_offer.id}")
 end
