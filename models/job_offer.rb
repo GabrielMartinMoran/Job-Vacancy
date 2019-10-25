@@ -7,7 +7,8 @@ class JobOffer
 
   attr_accessor :id, :user, :user_id, :title,
                 :location, :description, :is_active,
-                :updated_on, :created_on, :tags
+                :updated_on, :created_on, :tags,
+                :applications_quantity
 
   attr_reader :has_valid_tags
 
@@ -23,6 +24,7 @@ class JobOffer
     @created_on = data[:created_on]
     @user_id = data[:user_id]
     parse_tags(data[:tags])
+    @applications_quantity = data[:applications_quantity] || 0
   end
 
   def parse_tags(tags)
