@@ -20,6 +20,7 @@ JobVacancy::App.controllers :users do
     end
 
     if could_create_user
+      sign_in @user
       flash[:success] = 'User created'
       redirect '/'
     else
