@@ -1,6 +1,11 @@
 JobVacancy::App.controllers :job_offers do
   get :my do
     @offers = JobOfferRepository.new.find_by_owner(current_user)
+    ja_repository = JobApplicationRepository.new
+    @offers.each do |job_offer|
+      job_offer.applications_quantity =
+        ja_repository.find_by_job_offer_id(job_offer.id).length
+    end
     render 'job_offers/my_offers'
   end
 

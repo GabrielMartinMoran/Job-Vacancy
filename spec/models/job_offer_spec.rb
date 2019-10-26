@@ -14,6 +14,7 @@ describe JobOffer do
     it { is_expected.to respond_to(:updated_on) }
     it { is_expected.to respond_to(:is_active) }
     it { is_expected.to respond_to(:tags) }
+    it { is_expected.to respond_to(:applications_quantity) }
   end
 
   describe 'valid?' do
