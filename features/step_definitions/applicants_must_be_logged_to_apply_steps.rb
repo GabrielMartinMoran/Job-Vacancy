@@ -1,7 +1,3 @@
-Given('applicant is logged in') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When('applicant tries to apply') do
   pending # Write code here that turns the phrase above into concrete actions
 end

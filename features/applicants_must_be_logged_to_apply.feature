@@ -7,7 +7,7 @@ Feature: Applicants must be logged to apply
     Given only a "Web Programmer" offer exists in the offers list
 
   Scenario: Logged applicant tries to apply to an offer
-    Given applicant is logged in
+    Given applicant is logged in as job offerer
     And applicant access the offers list page
     When applicant tries to apply
     Then applicant should be in offer apply page
