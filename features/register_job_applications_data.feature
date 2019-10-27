@@ -9,5 +9,5 @@ Feature: Register job applications data
     And applicant access the offers list page
 
   Scenario: Register job application data
-    When Applicant 'user@test.com' applies with expected remuneration 10000.0
-    Then Email 'user@test.com' and expected remuneration 10000.0 should be stored for "Web Programmer" offer
+    When applicant applies with expected remuneration 10000.0
+    Then applicant email and expected remuneration 10000.0 should be stored for "Web Programmer" offer
