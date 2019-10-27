@@ -15,7 +15,6 @@ end
 
 When(/^I apply$/) do
   click_link 'Apply'
-  fill_in('job_application[applicant_email]', with: 'applicant@test.com')
   click_button('Apply')
 end
 

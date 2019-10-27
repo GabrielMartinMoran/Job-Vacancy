@@ -1,7 +1,6 @@
 When('I try to apply') do
   visit '/job_offers'
   click_link 'Apply'
-  fill_in('job_application[applicant_email]', with: 'applicant@test.com')
 end
 
 When('I fill expected remuneration with {float}') do |expected_remuneration|
