@@ -55,7 +55,8 @@ JobVacancy::App.controllers :job_offers do
     begin
       @job_application = JobApplication.new(applicant_email: applicant_email,
                                             job_offer: @job_offer,
-                                            expected_remuneration: expected_remuneration)
+                                            expected_remuneration: expected_remuneration,
+                                            applicant: current_user)
       JobApplicationRepository.new.save(@job_application)
     rescue StandardError => exception
       @job_application = JobApplication.new(applicant_email: applicant_email,

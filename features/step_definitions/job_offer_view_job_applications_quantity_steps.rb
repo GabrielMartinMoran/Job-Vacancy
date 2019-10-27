@@ -1,7 +1,11 @@
 Given('{int} users apply to {string} offer') do |quantity, _job_title|
   ja_repository = JobApplicationRepository.new
   quantity.times do |i|
-    ja = JobApplication.new(applicant_email: "applicant_#{i}@test.com", job_offer: @job_offer)
+    applicant = User.new(name: "applicant_#{i}", email: "applicant_#{i}@test.com",
+                         crypted_password: 'secure_pwd', short_bio: 'A' * 50)
+    UserRepository.new.save(applicant)
+    ja = JobApplication.new(applicant_email: "applicant_#{i}@test.com", job_offer: @job_offer,
+                            applicant: applicant)
     ja_repository.save(ja)
   end
 end

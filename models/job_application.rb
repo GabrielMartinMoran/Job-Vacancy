@@ -10,6 +10,8 @@ class JobApplication
     @applicant_email = data[:applicant_email]
     @job_offer = data[:job_offer]
     @job_offer_id = data[:job_offer_id]
+    @applicant = data[:applicant]
+    @applicant_id = data[:applicant_id]
     @expected_remuneration = obtain_expected_remuneration(data[:expected_remuneration])
   end
 
