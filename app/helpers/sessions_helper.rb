@@ -19,4 +19,11 @@ JobVacancy::App.helpers do
   rescue Sequel::NoMatchingRow
     false
   end
+
+  def create_path
+    url = '/sessions/create'
+    url += "?redirect_to=#{params[:redirect_to]}" unless params[:redirect_to].nil?
+
+    url
+  end
 end

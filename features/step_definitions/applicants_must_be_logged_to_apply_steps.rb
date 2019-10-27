@@ -11,11 +11,14 @@ Given('applicant is not logged in') do
 end
 
 Then('applicant should be in login page') do
-  assert_current_path('/login')
+  assert_current_path('/login', ignore_query: true)
 end
 
 When('applicant logins') do
-  pending # Write code here that turns the phrase above into concrete actions
+  fill_in('user[email]', with: 'offerer@test.com')
+  fill_in('user[password]', with: 'Passw0rd!')
+  click_button('Login')
+  page.should have_content('offerer@test.com')
 end
 
 When('applicant registers') do

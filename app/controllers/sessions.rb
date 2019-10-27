@@ -19,6 +19,8 @@ JobVacancy::App.controllers :sessions do
     gate_keeper.when_succeed do |user|
       @user = user
       sign_in @user
+      return redirect params[:redirect_to] unless params[:redirect_to].nil?
+
       redirect '/'
     end
 

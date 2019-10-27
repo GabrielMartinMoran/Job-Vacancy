@@ -18,7 +18,6 @@ Feature: Applicants must be logged to apply
     When applicant tries to apply
     Then applicant should be in login page
   
-  @wip
   Scenario: Applicant is redirected to offer apply after login
     Given applicant is not logged in
     And applicant access the offers list page
