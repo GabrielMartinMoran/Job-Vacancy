@@ -31,6 +31,8 @@ JobVacancy::App.controllers :job_offers do
   end
 
   get :apply, with: :offer_id do
+    return redirect "/login?redirect_to=/job_offers/apply/#{params[:offer_id]}" unless signed_in?
+
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
     @job_application = JobApplication.new
     so = SuggestedOffers.new(@job_offer)
@@ -47,17 +49,15 @@ JobVacancy::App.controllers :job_offers do
 
   post :apply, with: :offer_id do
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
-    applicant_email = params[:job_application][:applicant_email]
     expected_remuneration = parse_expected_remuneration
     @suggested_offers = []
     begin
-      @job_application = JobApplication.new(applicant_email: applicant_email,
-                                            job_offer: @job_offer,
-                                            expected_remuneration: expected_remuneration)
+      @job_application = JobApplication.new(job_offer: @job_offer,
+                                            expected_remuneration: expected_remuneration,
+                                            applicant: current_user)
       JobApplicationRepository.new.save(@job_application)
     rescue StandardError => exception
-      @job_application = JobApplication.new(applicant_email: applicant_email,
-                                            job_offer: @job_offer)
+      @job_application = JobApplication.new(job_offer: @job_offer)
       flash.now[:error] = exception.message
       return render 'job_offers/apply'
     end

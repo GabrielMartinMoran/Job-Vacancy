@@ -5,6 +5,7 @@ Feature: Expected remuneration on job application
   
   Background:
     Given only a "Web Programmer" offer exists in the offers list
+    And I am logged in as job offerer
     And I access the offers list page
 
   Scenario: Apply to job offer providing expected remuneration
