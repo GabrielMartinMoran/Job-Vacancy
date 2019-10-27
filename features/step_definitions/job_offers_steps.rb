@@ -8,6 +8,7 @@ Given(/^[\w ]+ logged in as job offerer$/) do
   fill_in('user[password]', with: 'Passw0rd!')
   click_button('Login')
   page.should have_content('offerer@test.com')
+  @logged_user = UserRepository.new.find_by_email('offerer@test.com')
 end
 
 Given(/^I access the new offer page$/) do
