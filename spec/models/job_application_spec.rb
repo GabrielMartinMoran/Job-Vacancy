@@ -11,6 +11,8 @@ describe JobApplication do
     it { is_expected.to respond_to(:expected_remuneration) }
     it { is_expected.to respond_to(:created_on) }
     it { is_expected.to respond_to(:updated_on) }
+    it { is_expected.to respond_to(:applicant) }
+    it { is_expected.to respond_to(:applicant_id) }
   end
 
   describe 'initialize' do
