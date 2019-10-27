@@ -7,11 +7,11 @@ Then('applicant should be in offer apply page') do
 end
 
 Given('applicant is not logged in') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit '/logout'
 end
 
 Then('applicant should be in login page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  assert_current_path('/login')
 end
 
 When('applicant logins') do
