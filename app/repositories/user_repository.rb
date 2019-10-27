@@ -25,11 +25,4 @@ class UserRepository < BaseRepository
 
     super(user)
   end
-
-  def load_object(a_record)
-    loaded = super(a_record)
-    loaded.last_lock_date = DateTime.parse(loaded.last_lock_date.to_time.to_s) unless loaded.last_lock_date.nil?
-
-    loaded
-  end
 end
