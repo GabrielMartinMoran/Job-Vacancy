@@ -5,6 +5,7 @@ Feature: Register job applications data
 
   Background:
     Given only a "Web Programmer" offer exists in the offers list
+    And applicant is logged in as job offerer
     And applicant access the offers list page
 
   Scenario: Register job application data

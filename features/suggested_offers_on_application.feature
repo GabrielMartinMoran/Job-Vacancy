@@ -6,6 +6,7 @@ Feature: Suggested offers on application
 
   Background:
     Given "Ruby Web Programmer" offer exists in the offers list with tags "programmer,web,ruby"
+    And I am logged in as job offerer
     And I access the offers list page
 
   Scenario: No suggested offers are displayed if no other offers tags matches

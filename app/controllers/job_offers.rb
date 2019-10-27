@@ -31,6 +31,8 @@ JobVacancy::App.controllers :job_offers do
   end
 
   get :apply, with: :offer_id do
+    return redirect '/login' unless signed_in?
+
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
     @job_application = JobApplication.new
     so = SuggestedOffers.new(@job_offer)
