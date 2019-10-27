@@ -1,5 +1,5 @@
 <h1>Login</h1>
-<% form_for(@user, create_path) do |f| %>
+<% form_for(@user, session_create_path) do |f| %>
 	<%= f.label :email %>
  	<%= f.text_field :email %>
   <%= f.label :password %>
@@ -7,3 +7,4 @@
   <br/>
   <%= f.submit "Login", :id => 'loginButton', :class => "btn btn-primary" %>
 <% end %>
+<p>If you do not have an account, you can <a href="<%= register_path %>">register</a>.</p>

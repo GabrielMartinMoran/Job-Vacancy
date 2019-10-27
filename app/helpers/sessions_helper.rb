@@ -20,10 +20,11 @@ JobVacancy::App.helpers do
     false
   end
 
-  def create_path
-    url = '/sessions/create'
-    url += "?redirect_to=#{params[:redirect_to]}" unless params[:redirect_to].nil?
+  def session_create_path
+    '/sessions/create' + param_redirect_to
+  end
 
-    url
+  def register_path
+    '/register' + param_redirect_to
   end
 end

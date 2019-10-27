@@ -22,6 +22,8 @@ JobVacancy::App.controllers :users do
     if could_create_user
       sign_in @user
       flash[:success] = 'User created'
+      return redirect params[:redirect_to] unless params[:redirect_to].nil?
+
       redirect '/'
     else
       flash.now[:error] = (@user.errors.messages.map { |_key, value| value }).uniq.join(', ')

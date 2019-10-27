@@ -22,7 +22,13 @@ When('applicant logins') do
 end
 
 When('applicant registers') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_link('register')
+  fill_in('user[name]', with: 'UserName')
+  fill_in('user[email]', with: 'applicantmustbeloggedtoapply@test.com')
+  fill_in('user[password]', with: 'PassW0rd!123')
+  fill_in('user[password_confirmation]', with: 'PassW0rd!123')
+  fill_in('user[short_bio]', with: 'A' * 50)
+  click_button('Create')
 end
 
 When('applicant navigate to offer apply url') do
