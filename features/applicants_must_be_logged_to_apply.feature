@@ -32,7 +32,6 @@ Feature: Applicants must be logged to apply
     And applicant registers
     Then applicant should be in offer apply page
 
-  @wip
   Scenario: Applicant can not access to apply by URL if not logged in
     Given applicant is not logged in
     And applicant access the offers list page

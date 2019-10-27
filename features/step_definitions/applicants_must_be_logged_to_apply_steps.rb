@@ -32,5 +32,5 @@ When('applicant registers') do
 end
 
 When('applicant navigate to offer apply url') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit "/job_offers/apply/#{@job_offer.id}"
 end
