@@ -1,9 +1,9 @@
 When('applicant tries to apply') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_link('Apply')
 end
 
 Then('applicant should be in offer apply page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  assert_current_path("/job_offers/apply/#{@job_offer.id}")
 end
 
 Given('applicant is not logged in') do
