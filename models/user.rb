@@ -58,7 +58,7 @@ class User
   def locked?
     return false if @last_lock_date.nil?
 
-    ((Date.today - @last_lock_date) * 24).round < MIN_LOCKED_HOURS
+    ((Time.now - @last_lock_date) / 3600).round < MIN_LOCKED_HOURS
   end
 
   def add_login_failed_attempt
@@ -67,7 +67,7 @@ class User
     return unless @login_failed_attempts >= MAX_LOGIN_FAILED_ATTEMPS
 
     @login_failed_attempts = 0
-    @last_lock_date = Date.today
+    @last_lock_date = Time.now
   end
 
   private

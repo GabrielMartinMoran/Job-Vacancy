@@ -23,11 +23,11 @@ end
 
 Given('User with email {string} is locked') do |email|
   @user = User.new(name: 'UserName', email: email, short_bio: 'A' * 50, password: @password,
-                   last_lock_date: DateTime.now)
+                   last_lock_date: Time.now)
   UserRepository.new.save @user
   @user.locked?.should be true
 end
 
 When('{int} hours passed') do |hours|
-  Timecop.travel(Date.today + hours / 24)
+  Timecop.travel(Time.now + hours * 3600)
 end

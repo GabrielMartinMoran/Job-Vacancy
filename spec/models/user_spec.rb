@@ -108,12 +108,12 @@ describe User do
 
   describe 'locked?' do
     it 'should return true if last_lock_date is less than 24h' do
-      user.last_lock_date = Date.today
+      user.last_lock_date = Time.now - 23 * 3600
       expect(user.locked?).to eq true
     end
 
     it 'should return false if last_lock_date is more than 24h' do
-      user.last_lock_date = Date.today - 2
+      user.last_lock_date = Time.new - 24 * 3600
       expect(user.locked?).to eq false
     end
 
@@ -140,7 +140,7 @@ describe User do
       user.login_failed_attempts = 2
       user.add_login_failed_attempt
       expect(user.login_failed_attempts).to eq 0
-      expect(user.last_lock_date).to eq(Date.today)
+      expect(user.last_lock_date.round).to eq(Time.now.round)
     end
   end
 end
