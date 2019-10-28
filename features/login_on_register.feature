@@ -8,5 +8,5 @@ Feature: Login on register
 
   Scenario: A user is logged in after registration
     When I fill email with 'loginonregister@test.com' and other fields with valid values
-    And I try to register
+    And I click create
     Then I should be logged in
