@@ -18,6 +18,8 @@ JobVacancy::App.controllers :sessions do
 
     gate_keeper.when_succeed do |user|
       @user = user
+      @user.login_failed_attempts = 0
+      UserRepository.new.save(@user)
       sign_in @user
       return redirect params[:redirect_to] unless params[:redirect_to].nil?
 

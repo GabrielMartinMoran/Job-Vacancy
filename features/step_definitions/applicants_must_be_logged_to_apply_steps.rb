@@ -10,6 +10,10 @@ Given('applicant is not logged in') do
   visit '/logout'
 end
 
+When('I logout') do
+  visit '/logout'
+end
+
 Then('applicant should be in login page') do
   assert_current_path('/login', ignore_query: true)
 end

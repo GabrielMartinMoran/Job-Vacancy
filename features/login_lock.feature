@@ -15,3 +15,11 @@ Feature: Account Lock
     Given User with email 'user1@test.com' was locked yesterday
     When I try to access with email 'user1@test.com'
     Then I should be logged in
+
+  Scenario: The number of account login fails is restored after logging in
+    When I try to access with email 'user@test.com' and wrong password 2 times
+    And I try to access with email 'user@test.com'
+    And I logout
+    And I try to access with email 'user@test.com' and wrong password 1 times
+    And I try to access with email 'user@test.com'
+    Then I should be logged in
