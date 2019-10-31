@@ -19,4 +19,12 @@ JobVacancy::App.helpers do
   rescue Sequel::NoMatchingRow
     false
   end
+
+  def session_create_path
+    '/sessions/create' + param_redirect_to
+  end
+
+  def register_path
+    '/register' + param_redirect_to
+  end
 end

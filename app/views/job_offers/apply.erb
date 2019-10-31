@@ -1,15 +1,48 @@
 <h1>Job Application</h1>
 
-	
+<h1><%= @job_offer.title %></h1>
+
 <p>Please enter your email address to receive the contanct information for this offer.</p>
 <% form_for(@job_application, "/job_offers/apply/#{@job_offer.id}") do |f| %>
 
-  <%= f.label :applicant_email %>
- 	<%= f.text_field :applicant_email %>
   <%= f.label :expected_remuneration %>
  	<%= f.number_field :expected_remuneration, step: 0.01 %>
 
 	<hr/>
   <%= f.submit "Apply", :class => "btn btn-primary" %>
   <%= link_to 'Cancel', url_for(:job_offers, :latest), :class => "btn btn-secondary" %>
+
+<h1>Suggested Offers</h1>
+<table class="table table-bordered">
+	<tr>
+    <th>Title</th>
+		<th>Location</th>
+    <th>Description</th>
+		<th>Tags</th>
+    <th>Actions</th>
+	</tr>
+	<% @suggested_offers.each do | suggested_offer| %>
+
+	<tr>
+		<td>
+			<%= suggested_offer.title %>
+    </td>	
+		<td>
+			<%= suggested_offer.location %>
+		</td>
+		<td>
+			<%= suggested_offer.description %>
+		</td>
+		<td>
+			<%= suggested_offer.tags %>
+		</td>
+    <td>
+			<%= link_to 'Apply', url_for(:job_offers, :apply, :offer_id => suggested_offer.id), :class => "btn btn-secondary" %>
+    </td>	
+	</tr>
+  
+
+  <% end %>
+</table>
+
 <% end %>

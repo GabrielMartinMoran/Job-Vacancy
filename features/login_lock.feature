@@ -12,6 +12,14 @@ Feature: Account Lock
     Then An error indicating that the account is locked should be displayed if user tries to log in
 
   Scenario: Account previously locked can login after predefinited time
-    Given User with email 'user1@test.com' is locked
-    When 24 hours passed
-    Then User should be able to login with email 'user1@test.com'
+    Given User with email 'user1@test.com' was locked yesterday
+    When I try to access with email 'user1@test.com'
+    Then I should be logged in
+
+  Scenario: The number of account login fails is restored after logging in
+    When I try to access with email 'user@test.com' and wrong password 2 times
+    And I try to access with email 'user@test.com'
+    And I logout
+    And I try to access with email 'user@test.com' and wrong password 1 times
+    And I try to access with email 'user@test.com'
+    Then I should be logged in

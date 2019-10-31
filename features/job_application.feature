@@ -5,6 +5,7 @@ Feature: Job Application
 
   Background:
   	Given only a "Web Programmer" offer exists in the offers list
+    And I am logged in as job offerer
 
   Scenario: Apply to job offer
     Given I access the offers list page

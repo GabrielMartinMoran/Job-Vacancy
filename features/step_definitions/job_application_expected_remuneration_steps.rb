@@ -1,7 +1,6 @@
 When('I try to apply') do
   visit '/job_offers'
   click_link 'Apply'
-  fill_in('job_application[applicant_email]', with: 'applicant@test.com')
 end
 
 When('I fill expected remuneration with {float}') do |expected_remuneration|
@@ -17,7 +16,9 @@ Then('the job offerer receive a mail with application info') do
   file = File.open("#{mail_store}/#{@job_offer.owner.email}", 'r')
   @mail_content = file.read
   @mail_content.include?("Application for offer #{@job_offer.id}").should be true
-  @mail_content.include?('applicant@test.com').should be true
+  @mail_content.include?(@logged_user.name).should be true
+  @mail_content.include?(@logged_user.email).should be true
+  @mail_content.include?(@logged_user.short_bio).should be true
   @mail_content.include?(@job_offer.title).should be true
   @mail_content.include?(@job_offer.location).should be true
   @mail_content.include?(@job_offer.description).should be true

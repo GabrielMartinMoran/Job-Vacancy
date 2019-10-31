@@ -1,14 +1,16 @@
 class JobApplication
   include ActiveModel::Validations
 
-  attr_accessor :id, :applicant_email, :job_offer, :expected_remuneration,
-                :updated_on, :created_on, :job_offer_id
+  attr_accessor :id, :job_offer, :expected_remuneration,
+                :updated_on, :created_on, :job_offer_id, :applicant,
+                :applicant_id
 
   def initialize(data = {})
     @id = data[:id]
-    @applicant_email = data[:applicant_email]
     @job_offer = data[:job_offer]
     @job_offer_id = data[:job_offer_id]
+    @applicant = data[:applicant]
+    @applicant_id = data[:applicant_id]
     @expected_remuneration = obtain_expected_remuneration(data[:expected_remuneration])
   end
 
