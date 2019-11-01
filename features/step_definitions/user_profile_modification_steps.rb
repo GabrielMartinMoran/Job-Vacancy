@@ -54,9 +54,11 @@ Then('My password should be not updated') do
 end
 
 When('I update my password and password confirmation') do
-  pending # Write code here that turns the phrase above into concrete actions
+  fill_in('user[password]', with: 'NewPassword!123')
+  fill_in('user[password_confirmation]', with: 'NewPassword!123')
 end
 
 Then('My password should be updated') do
-  pending # Write code here that turns the phrase above into concrete actions
+  obtained_user = UserRepository.new.find(@logged_user.id)
+  expect(obtained_user.crypted_password).not_to eq @logged_user.crypted_password
 end
