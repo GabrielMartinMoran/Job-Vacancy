@@ -1,5 +1,15 @@
-Given('I am logged in as {string}') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+Given('I am logged in as {string}') do |email|
+  repository = UserRepository.new
+  @logged_user = User.new(email: email,
+                          name: 'UserName',
+                          password: 'Passw0rd!',
+                          short_bio: 'A' * 50)
+  repository.save(@logged_user)
+  visit '/login'
+  fill_in('user[email]', with: email)
+  fill_in('user[password]', with: 'Passw0rd!')
+  click_button('Login')
+  page.should have_content(email)
 end
 
 When('I click on email link') do
