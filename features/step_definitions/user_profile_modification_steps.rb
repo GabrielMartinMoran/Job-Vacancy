@@ -27,15 +27,18 @@ Then('I should be in profile update page') do
 end
 
 Given('I am in profile update page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit '/profile_update'
 end
 
 When('I update my name, short bio and prefered tags') do
-  pending # Write code here that turns the phrase above into concrete actions
+  fill_in('user[name]', with: 'NewName')
+  fill_in('user[short_bio]', with: 'B' * 50)
+  # pending prefered tags
+  # fill_in('user[prefered_tags]', with: 'NewName')
 end
 
 When('I click on save button') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_button('Save')
 end
 
 Then('My profile should be updated') do
