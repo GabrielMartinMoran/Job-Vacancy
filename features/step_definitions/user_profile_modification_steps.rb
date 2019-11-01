@@ -13,11 +13,17 @@ Given('I am logged in as {string}') do |email|
 end
 
 When('I click on email link') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_link(@logged_user.email)
 end
 
 Then('I should be in profile update page') do
-  pending # Write code here that turns the phrase above into concrete actions
+  assert_current_path('/profile_update')
+  page.should have_content('Edit profile')
+  page.should have_content('Name')
+  page.should have_content('Email')
+  page.should have_content('Password')
+  page.should have_content('Password confirmation')
+  page.should have_content('Short bio')
 end
 
 Given('I am in profile update page') do

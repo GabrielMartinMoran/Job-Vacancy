@@ -30,4 +30,9 @@ JobVacancy::App.controllers :users do
       render 'users/new'
     end
   end
+
+  get :profile_update, map: '/profile_update' do
+    @user = current_user
+    render 'users/profile_update'
+  end
 end
