@@ -42,11 +42,15 @@ When('I click on save button') do
 end
 
 Then('My profile should be updated') do
-  pending # Write code here that turns the phrase above into concrete actions
+  obtained_user = UserRepository.new.find(@logged_user.id)
+  expect(obtained_user.email).to eq @logged_user.email
+  expect(obtained_user.name).not_to eq @logged_user.name
+  expect(obtained_user.short_bio).not_to eq @logged_user.short_bio
 end
 
 Then('My password should be not updated') do
-  pending # Write code here that turns the phrase above into concrete actions
+  obtained_user = UserRepository.new.find(@logged_user.id)
+  expect(obtained_user.crypted_password).to eq @logged_user.crypted_password
 end
 
 When('I update my password and password confirmation') do

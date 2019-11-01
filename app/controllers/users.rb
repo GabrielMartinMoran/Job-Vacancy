@@ -35,4 +35,14 @@ JobVacancy::App.controllers :users do
     @user = current_user
     render 'users/profile_update'
   end
+
+  put :update do
+    @user = current_user
+    @user.name = params[:user][:name]
+    @user.short_bio = params[:user][:short_bio]
+    return redirect '/' if UserRepository.new.save(@user)
+
+    flash.now[:error] = (@user.errors.messages.map { |_key, value| value }).uniq.join(', ')
+    render 'users/profile_update'
+  end
 end
