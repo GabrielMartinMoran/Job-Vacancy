@@ -70,7 +70,7 @@ class User
     @last_lock_date = Time.now
   end
 
-  def set_password(password)
+  def password=(password)
     @crypted_password = Crypto.encrypt(password)
   end
 

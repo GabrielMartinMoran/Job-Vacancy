@@ -144,9 +144,9 @@ describe User do
     end
   end
 
-  describe 'set_password' do
+  describe 'password=' do
     it 'should set crypted_password with crypted version of provided password' do
-      user.set_password('Passw0rd!123')
+      user.password = 'Passw0rd!123'
       expect(user).to have_password('Passw0rd!123')
     end
   end
