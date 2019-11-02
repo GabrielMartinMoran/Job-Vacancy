@@ -14,5 +14,10 @@ When('I access to my applications') do
 end
 
 Then('I should see Job Offer application info') do
-  pending # Write code here that turns the phrase above into concrete actions
+  job_application = JobApplicationRepository.new
+                                            .find_by_applicant_id(@logged_user.id).first
+  page.should have_content(job_application.created_on.to_s)
+  page.should have_content(job_application.job_offer.title)
+  page.should have_content(job_application.expected_remuneration)
+  page.should have_content(job_application.job_offer.owner.email)
 end
