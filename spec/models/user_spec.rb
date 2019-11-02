@@ -151,4 +151,11 @@ describe User do
       expect(user).to have_password('Passw0rd!123')
     end
   end
+
+  describe 'initialize' do
+    it 'should set prefered_tags' do
+      user = described_class.new(prefered_tags: 'prefered_tag1,prefered_tag2')
+      expect(user.prefered_tags).to eq('prefered_tag1,prefered_tag2')
+    end
+  end
 end

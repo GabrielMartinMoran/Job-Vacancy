@@ -31,6 +31,7 @@ class User
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
     @short_bio = data[:short_bio]
+    @prefered_tags = data[:prefered_tags]
     load_lock_data(data)
   end
 
