@@ -6,13 +6,11 @@ Feature: User Offer prefered tags
   Scenario: Registration with 10 prefered tags
     Given I access to the register page
     When I try to register with prefered tags "python,ruby,web,developer,programmer,whitespace,basic,c,cpp,devops"
-    And I try to register
     Then I should be registered succesfully
   @wip
   Scenario: Registration with more than 10 prefered tags
     Given I access to the register page
     When I try to register with prefered tags "python,ruby,web,developer,programmer,whitespace,basic,c,cpp,devops,java"
-    And I try to register
     Then I should see a message indicating error on prefered tags
   @wip
   Scenario: Notification on job offer activation with matching prefered tags
