@@ -8,6 +8,10 @@ class JobApplicationRepository < BaseRepository
     collection.sort_by(&:created_on)
   end
 
+  def find_by_applicant_id(_applicant_id)
+    []
+  end
+
   protected
 
   def load_object(a_record)

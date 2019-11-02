@@ -76,4 +76,11 @@ describe JobApplicationRepository do
       expect(obtained[2].created_on).to eq Date.new(2019, 5, 2)
     end
   end
+
+  describe 'find_by_applicant_id' do
+    it 'should return empty array if there is no job applications for provided applicant_id' do
+      obtained = repository.find_by_applicant_id(-99_999)
+      expect(obtained).to eq []
+    end
+  end
 end
