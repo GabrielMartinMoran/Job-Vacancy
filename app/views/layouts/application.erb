@@ -32,6 +32,7 @@
                 <% if signed_in? %>
                 <li><%= link_to 'New Offer', url_for(:job_offers, :new) %></li>
                 <li><%= link_to 'My Offers', url_for(:job_offers, :my) %></li>
+                <li><%= link_to 'My Applications', url_for(:job_applications, :my_applications) %></li>
 
 								<% end %>
 								<% if signed_in? %>

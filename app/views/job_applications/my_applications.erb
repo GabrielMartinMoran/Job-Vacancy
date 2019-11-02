@@ -1,0 +1,28 @@
+<h1>My applications</h1>
+<table class="table table-bordered">
+	<tr>
+		<th>Apply date</th>
+		<th>Title</th>
+		<th>Expected remuneration</th>
+		<th>Offerer email</th>
+	</tr>
+	<% @job_applications.each do | application| %>
+
+	<tr>
+		<td>
+			<%= application.created_on %>
+		</td>
+		<td>
+			<%= application.job_offer.title %>
+		</td>
+		<td>
+			<%= application.expected_remuneration %>
+		</td>
+		<td>
+			<%= application.job_offer.owner.email %>
+		</td>
+	</tr>
+
+  <% end %>
+
+</table>

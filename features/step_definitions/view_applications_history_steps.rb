@@ -5,7 +5,12 @@ Given('I applied for Job Offer with expected remuneration {float}') do |expected
 end
 
 When('I access to my applications') do
-  pending # Write code here that turns the phrase above into concrete actions
+  click_link('My Applications')
+  page.should have_content('My applications')
+  page.should have_content('Apply date')
+  page.should have_content('Title')
+  page.should have_content('Expected remuneration')
+  page.should have_content('Offerer email')
 end
 
 Then('I should see Job Offer application info') do
