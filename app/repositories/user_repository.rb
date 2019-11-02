@@ -16,7 +16,8 @@ class UserRepository < BaseRepository
       email: user.email,
       short_bio: user.short_bio,
       login_failed_attempts: user.login_failed_attempts,
-      last_lock_date: user.last_lock_date
+      last_lock_date: user.last_lock_date,
+      prefered_tags: user.prefered_tags
     }
   end
 
