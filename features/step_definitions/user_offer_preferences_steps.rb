@@ -15,7 +15,7 @@ Then('I should be registered succesfully') do
 end
 
 Then('I should see a message indicating error on prefered tags') do
-  pending # Write code here that turns the phrase above into concrete actions
+  page.should have_content('Too much prefered tags')
 end
 
 Given('User {string} is registered with prefered tags {string}') do |_string, _string2|
