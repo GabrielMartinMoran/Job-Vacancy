@@ -40,6 +40,7 @@ describe JobApplicationRepository do
       expect(obtained.expected_remuneration).to eq job_application.expected_remuneration
       expect(obtained.job_offer.id).to eq job_application.job_offer.id
       expect(obtained.applicant.id).to eq job_application.applicant.id
+      expect(obtained.created_on).to eq Date.today
     end
   end
 
@@ -59,15 +60,11 @@ describe JobApplicationRepository do
 
   describe 'find_by_applicant_id' do
     let(:applications_mock_array) do
-      applications_mock_array = [
-        JobApplication.new,
-        JobApplication.new,
-        JobApplication.new
+      [
+        JobApplication.new(created_on: Date.new(2019, 5, 2)),
+        JobApplication.new(created_on: Date.new(2017, 6, 9)),
+        JobApplication.new(created_on: Date.new(2018, 9, 12))
       ]
-      applications_mock_array[0].created_on = Date.new(2019, 5, 2)
-      applications_mock_array[1].created_on = Date.new(2017, 6, 9)
-      applications_mock_array[2].created_on = Date.new(2018, 9, 12)
-      applications_mock_array
     end
 
     it 'should return empty array if there is no job applications for provided applicant_id' do
