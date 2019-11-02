@@ -8,8 +8,8 @@ class JobApplicationRepository < BaseRepository
     collection.sort_by(&:created_on)
   end
 
-  def find_by_applicant_id(_applicant_id)
-    []
+  def find_by_applicant_id(applicant_id)
+    load_collection(dataset.where(applicant_id: applicant_id))
   end
 
   protected

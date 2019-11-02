@@ -82,5 +82,12 @@ describe JobApplicationRepository do
       obtained = repository.find_by_applicant_id(-99_999)
       expect(obtained).to eq []
     end
+
+    it 'should return job application object if exists with provided applicant_id' do
+      obtained = repository.find_by_applicant_id(applicant.id).first
+      expect(obtained.expected_remuneration).to eq job_application.expected_remuneration
+      expect(obtained.job_offer.id).to eq job_application.job_offer.id
+      expect(obtained.applicant.id).to eq job_application.applicant.id
+    end
   end
 end
