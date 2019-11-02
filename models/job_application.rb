@@ -12,6 +12,7 @@ class JobApplication
     @applicant = data[:applicant]
     @applicant_id = data[:applicant_id]
     @expected_remuneration = obtain_expected_remuneration(data[:expected_remuneration])
+    @created_on = data[:created_on]
   end
 
   def process
