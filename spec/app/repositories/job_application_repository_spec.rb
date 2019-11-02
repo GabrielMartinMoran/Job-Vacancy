@@ -78,6 +78,18 @@ describe JobApplicationRepository do
   end
 
   describe 'find_by_applicant_id' do
+    let(:applications_mock_array) do
+      applications_mock_array = [
+        JobApplication.new,
+        JobApplication.new,
+        JobApplication.new
+      ]
+      applications_mock_array[0].created_on = Date.new(2019, 5, 2)
+      applications_mock_array[1].created_on = Date.new(2017, 6, 9)
+      applications_mock_array[2].created_on = Date.new(2018, 9, 12)
+      applications_mock_array
+    end
+
     it 'should return empty array if there is no job applications for provided applicant_id' do
       obtained = repository.find_by_applicant_id(-99_999)
       expect(obtained).to eq []
@@ -88,6 +100,14 @@ describe JobApplicationRepository do
       expect(obtained.expected_remuneration).to eq job_application.expected_remuneration
       expect(obtained.job_offer.id).to eq job_application.job_offer.id
       expect(obtained.applicant.id).to eq job_application.applicant.id
+    end
+
+    it 'should return job applications objects sorteds by created_on date' do
+      allow(repository).to receive(:load_collection).and_return(applications_mock_array)
+      obtained = repository.find_by_applicant_id(applicant.id)
+      expect(obtained[0].created_on).to eq Date.new(2017, 6, 9)
+      expect(obtained[1].created_on).to eq Date.new(2018, 9, 12)
+      expect(obtained[2].created_on).to eq Date.new(2019, 5, 2)
     end
   end
 end

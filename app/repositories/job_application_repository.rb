@@ -9,7 +9,9 @@ class JobApplicationRepository < BaseRepository
   end
 
   def find_by_applicant_id(applicant_id)
-    load_collection(dataset.where(applicant_id: applicant_id))
+    collection = load_collection(dataset.where(applicant_id: applicant_id))
+
+    collection.sort_by(&:created_on)
   end
 
   protected
