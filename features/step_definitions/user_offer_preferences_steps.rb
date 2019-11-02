@@ -1,5 +1,11 @@
-When('I try to register with prefered tags {string}') do |_prefered_tags|
-  pending # Write code here that turns the phrase above into concrete actions
+When('I try to register with prefered tags {string}') do |prefered_tags|
+  fill_in('user[name]', with: 'UserName')
+  fill_in('user[email]', with: 'register_tags@test.com')
+  fill_in('user[password]', with: 'PassW0rd!123')
+  fill_in('user[password_confirmation]', with: 'PassW0rd!123')
+  short_bio = 'A' * 50
+  fill_in('user[short_bio]', with: short_bio)
+  fill_in('user[prefered_tags]', with: prefered_tags)
 end
 
 Then('I should be registered succesfully') do
