@@ -1,4 +1,4 @@
-When('I try to register with preference tags {string}') do |_string|
+When('I try to register with prefered tags {string}') do |_prefered_tags|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -6,7 +6,7 @@ Then('I should be registered succesfully') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then('I should see a message indicating error on preference tags') do
+Then('I should see a message indicating error on prefered tags') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
