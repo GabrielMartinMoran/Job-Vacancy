@@ -6,6 +6,12 @@ class JobApplicationRepository < BaseRepository
     load_collection(dataset.where(job_offer_id: job_offer_id))
   end
 
+  def find_by_applicant_id(applicant_id)
+    collection = load_collection(dataset.where(applicant_id: applicant_id))
+
+    collection.sort_by(&:created_on)
+  end
+
   protected
 
   def load_object(a_record)

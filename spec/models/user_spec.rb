@@ -143,4 +143,11 @@ describe User do
       expect(user.last_lock_date.round).to eq(Time.now.round)
     end
   end
+
+  describe 'password=' do
+    it 'should set crypted_password with crypted version of provided password' do
+      user.password = 'Passw0rd!123'
+      expect(user).to have_password('Passw0rd!123')
+    end
+  end
 end

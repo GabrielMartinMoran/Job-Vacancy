@@ -57,6 +57,11 @@ describe JobApplication do
       ja = described_class.new(job_offer: offer)
       expect(ja.expected_remuneration).to eq(nil)
     end
+
+    it 'should set created_on' do
+      ja = described_class.new(created_on: Date.today)
+      expect(ja.created_on).to eq(Date.today)
+    end
   end
 
   describe 'process' do

@@ -1,0 +1,14 @@
+<h1>Edit profile</h1>
+<% form_for(@user, '/users/update', method: :put) do |f| %> <%= f.label :name %>
+	<%= f.text_field :name %>
+	<%= f.label :email %>
+ 	<%= f.text_field :email, :disabled => true %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+  <%= f.label :short_bio %>
+  <%= f.text_area :short_bio, style: 'width:65%;' %>
+  <br/>
+  <%= f.submit "Save", :class => "btn btn-primary" %>
+<% end %>
