@@ -3,7 +3,9 @@ class JobApplicationRepository < BaseRepository
   self.model_class = 'JobApplication'
 
   def find_by_job_offer_id(job_offer_id)
-    load_collection(dataset.where(job_offer_id: job_offer_id))
+    collection = load_collection(dataset.where(job_offer_id: job_offer_id))
+
+    collection.sort_by(&:created_on)
   end
 
   protected
