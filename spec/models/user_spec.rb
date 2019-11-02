@@ -70,6 +70,16 @@ describe User do
       expect(user.valid?).to eq false
       expect(user.errors).to have_key(:short_bio)
     end
+
+    it 'should be false when prefered_tags are greather than 10' do
+      user = described_class.new(name: 'John Doe',
+                                 email: 'john.doe@someplace.com',
+                                 crypted_password: 'a_secure_passWord!',
+                                 short_bio: 'A' * SHORT_BIO_VALID_LENGTH,
+                                 prefered_tags: '1,2,3,4,5,6,7,8,9,10,11')
+      expect(user.valid?).to eq false
+      expect(user.errors).to have_key(:prefered_tags)
+    end
   end
 
   describe 'has password?' do

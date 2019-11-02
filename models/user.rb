@@ -1,4 +1,5 @@
 require_relative 'secure_password'
+require_relative 'tags_normalizer'
 
 class User
   include ActiveModel::Validations
@@ -11,6 +12,7 @@ class User
   MAX_LENGTH_VALID_BIO = 500
   MIN_LOCKED_HOURS = 24
   MAX_LOGIN_FAILED_ATTEMPS = 3
+  MAX_PREFERED_TAGS = 10
 
   validates :name, :crypted_password, :email,
             presence: { message: 'All fields are mandatory' }
@@ -22,6 +24,7 @@ class User
                     MIN_LENGTH_VALID_BIO, MAX_LENGTH_VALID_BIO)
   }
 
+  # rubocop:disable Metrics/AbcSize
   def initialize(data = {})
     @id = data[:id]
     @name = data[:name]
@@ -31,9 +34,10 @@ class User
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
     @short_bio = data[:short_bio]
-    @prefered_tags = data[:prefered_tags]
+    parse_tags(data[:prefered_tags])
     load_lock_data(data)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def has_password?(password)
     Crypto.decrypt(crypted_password) == password
@@ -75,6 +79,15 @@ class User
     @crypted_password = Crypto.encrypt(password)
   end
 
+  def valid?
+    unless @has_valid_tags
+      errors.add(:prefered_tags, 'Too much prefered tags')
+      return false
+    end
+
+    super
+  end
+
   private
 
   def obtain_crypted_password(password, crypted_password)
@@ -88,5 +101,12 @@ class User
   def load_lock_data(data)
     @login_failed_attempts = data[:login_failed_attempts] || 0
     @last_lock_date = data[:last_lock_date]
+  end
+
+  def parse_tags(prefered_tags)
+    @has_valid_tags = true
+    @prefered_tags = TagsNormalizer.new(MAX_PREFERED_TAGS).normalize(prefered_tags || '')
+  rescue StandardError
+    @has_valid_tags = false
   end
 end
