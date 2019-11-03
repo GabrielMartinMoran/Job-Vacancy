@@ -59,7 +59,8 @@ Given('Job Offer was already activated') do
 end
 
 When('Job Offer is deactivated') do
-  pending # Write code here that turns the phrase above into concrete actions
+  @job_offer.is_active = false
+  JobOfferRepository.new.save @job_offer
 end
 
 When('Job Offer is activated') do
