@@ -13,8 +13,6 @@ class JobOffer
   attr_reader :has_valid_tags
 
   validates :title, presence: true
-
-  # rubocop:disable Metrics/AbcSize
   def initialize(data = {})
     @id = data[:id]
     @title = data[:title]
@@ -28,7 +26,6 @@ class JobOffer
     @applications_quantity = data[:applications_quantity] || 0
     @users_notified = data[:users_notified] || false
   end
-  # rubocop:enable Metrics/AbcSize
 
   def parse_tags(tags)
     @has_valid_tags = true
@@ -47,9 +44,11 @@ class JobOffer
   end
 
   def activate(users_to_notify = [])
-    @users_notified = true
     self.is_active = true
+    return if @users_notified
+
     deliver_offer_notification_email(users_to_notify)
+    @users_notified = true
   end
 
   def deactivate

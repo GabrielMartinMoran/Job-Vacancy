@@ -66,5 +66,15 @@ describe JobOffer do
       expect(offer.users_notified).to be true
       expect(offer.is_active).to be true
     end
+
+    it 'should not deliver offer info notification when users_notified is true' do
+      offer.users_notified = true
+      users_to_notify = [User.new(email: 'user_notify_1@test.com'),
+                         User.new(email: 'user_notify_2@test.com')]
+      expect(JobVacancy::App).not_to receive(:deliver)
+      offer.activate(users_to_notify)
+      expect(offer.users_notified).to be true
+      expect(offer.is_active).to be true
+    end
   end
 end

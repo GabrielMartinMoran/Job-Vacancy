@@ -24,7 +24,6 @@ class User
                     MIN_LENGTH_VALID_BIO, MAX_LENGTH_VALID_BIO)
   }
 
-  # rubocop:disable Metrics/AbcSize
   def initialize(data = {})
     @id = data[:id]
     @name = data[:name]
@@ -37,7 +36,6 @@ class User
     parse_tags(data[:prefered_tags])
     load_lock_data(data)
   end
-  # rubocop:enable Metrics/AbcSize
 
   def has_password?(password)
     Crypto.decrypt(crypted_password) == password
