@@ -44,12 +44,15 @@ end
 
 Then('User receive email with Job Offer info') do
   mail_store = "#{Padrino.root}/tmp/emails"
-  file = File.open("#{mail_store}/#{@user.email}", 'r')
+  path = "#{mail_store}/#{@user.email}"
+  file = File.open(path, 'r')
   content = file.read
   content.include?(@job_offer.title).should be true
   content.include?(@job_offer.location).should be true
   content.include?(@job_offer.description).should be true
   content.include?("/job_offers/apply/#{@job_offer.id}").should be true
+  file.close
+  File.delete(path) if File.exist?(path)
 end
 
 Given('Job Offer was already activated') do
@@ -75,5 +78,7 @@ When('Job Offer is activated') do
 end
 
 Then('User should not receive an email with Job Offer info') do
-  pending # Write code here that turns the phrase above into concrete actions
+  mail_store = "#{Padrino.root}/tmp/emails"
+  path = "#{mail_store}/#{@user.email}"
+  expect(File.exist?(path)).to be false
 end
