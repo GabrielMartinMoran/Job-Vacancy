@@ -39,7 +39,7 @@ JobVacancy::App.controllers :users do
   put :update do
     @user = User.new(id: current_user.id, email: current_user.email,
                      crypted_password: current_user.crypted_password, name: params[:user][:name],
-                     short_bio: params[:user][:short_bio])
+                     short_bio: params[:user][:short_bio], prefered_tags: params[:user][:prefered_tags])
 
     password_error = false
     if params[:user][:password] + params[:user][:password_confirmation] != ''

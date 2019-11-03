@@ -45,6 +45,7 @@ Then('My profile should be updated') do
   expect(obtained_user.email).to eq @logged_user.email
   expect(obtained_user.name).not_to eq @logged_user.name
   expect(obtained_user.short_bio).not_to eq @logged_user.short_bio
+  expect(obtained_user.prefered_tags).not_to eq @logged_user.prefered_tags
 end
 
 Then('My password should be not updated') do
