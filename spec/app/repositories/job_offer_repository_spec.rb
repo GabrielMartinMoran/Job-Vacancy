@@ -66,7 +66,7 @@ describe JobOfferRepository do
     end
 
     it 'should retrieve offers with tag matches' do
-      result = repository.search_by_tags(main_offer.tags)
+      result = repository.search_by_tags(main_offer.tags_list)
       offer_programmer_db = repository.find(offer_programmer.id)
       offer_programmer_web_db = repository.find(offer_programmer_web.id)
       offer_programmer_web_ruby_db = repository.find(offer_programmer_web_ruby.id)
@@ -78,7 +78,7 @@ describe JobOfferRepository do
     end
 
     it 'should not retrieve offers with no tag matches' do
-      result = repository.search_by_tags(main_offer.tags)
+      result = repository.search_by_tags(main_offer.tags_list)
       offer_no_tags_db = repository.find(offer_no_tags.id)
       offer_other_tags_db = repository.find(offer_other_tags.id)
       main_offer_db = repository.find(offer_other_tags.id)

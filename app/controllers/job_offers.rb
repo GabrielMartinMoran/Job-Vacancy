@@ -36,7 +36,7 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
     @job_application = JobApplication.new
     so = SuggestedOffers.new(@job_offer)
-    so.add(JobOfferRepository.new.search_by_tags(@job_offer.tags))
+    so.add(JobOfferRepository.new.search_by_tags(@job_offer.tags_list))
     @suggested_offers = so.obtain
     # TODO: validate the current user is the owner of the offer
     render 'job_offers/apply'
