@@ -18,5 +18,10 @@ describe Tageable do
     it 'should return normalized tags string when raw_tags is provided and max_tags is 3' do
       expect(tageable_dummy.parse_tags(' Tag1, tag1, TaG2 , Tag3', 3)).to eq 'tag1,tag2,tag3'
     end
+
+    it 'should set has_valid_tags to true when tags are parsed correctly' do
+      expect(tageable_dummy.parse_tags('tag1', 1)).to eq 'tag1'
+      expect(tageable_dummy.has_valid_tags).to be true
+    end
   end
 end
