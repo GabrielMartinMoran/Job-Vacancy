@@ -77,4 +77,11 @@ describe JobOffer do
       expect(offer.is_active).to be true
     end
   end
+
+  describe 'tags_list' do
+    it 'should return a tag list from tags property' do
+      job_offer.tags = 'tag1,tag2,tag3'
+      expect(job_offer.tags_list).to eq(%w[tag1 tag2 tag3])
+    end
+  end
 end

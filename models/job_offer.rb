@@ -59,6 +59,10 @@ class JobOffer
     (Date.today - updated_on) >= 30
   end
 
+  def tags_list
+    @tags.split(',')
+  end
+
   private
 
   def deliver_offer_notification_email(users_to_notify)
