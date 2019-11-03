@@ -43,7 +43,13 @@ When('Job Offer is first time activated') do
 end
 
 Then('User receive email with Job Offer info') do
-  pending # Write code here that turns the phrase above into concrete actions
+  mail_store = "#{Padrino.root}/tmp/emails"
+  file = File.open("#{mail_store}/#{@user.email}", 'r')
+  content = file.read
+  content.include?(@job_offer.title).should be true
+  content.include?(@job_offer.location).should be true
+  content.include?(@job_offer.description).should be true
+  content.include?("/job_offers/apply/#{@job_offer.id}").should be true
 end
 
 Given('Job Offer was already activated') do

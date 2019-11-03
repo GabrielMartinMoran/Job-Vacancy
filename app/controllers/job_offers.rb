@@ -94,7 +94,7 @@ JobVacancy::App.controllers :job_offers do
 
   put :activate, with: :offer_id do
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
-    @job_offer.activate
+    @job_offer.activate(UserRepository.new.find_by_matching_tags(@job_offer.tags_list))
     if JobOfferRepository.new.save(@job_offer)
       flash[:success] = 'Offer activated'
     else
