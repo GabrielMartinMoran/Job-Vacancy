@@ -53,7 +53,8 @@ class JobOfferRepository < BaseRepository
       description: offer.description,
       tags: offer.tags,
       is_active: offer.is_active,
-      user_id: offer.owner&.id || offer.user_id
+      user_id: offer.owner&.id || offer.user_id,
+      users_notified: offer.users_notified
     }
   end
 end

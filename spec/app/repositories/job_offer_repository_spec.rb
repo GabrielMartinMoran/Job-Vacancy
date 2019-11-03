@@ -123,4 +123,21 @@ describe JobOfferRepository do
       expect(not_updated_offer.is_active).to eq true
     end
   end
+
+  describe 'find' do
+    let!(:offer) do
+      offer = JobOffer.new(title: 'a title',
+                           updated_on: Date.today,
+                           is_active: true,
+                           user_id: owner.id, tags: 'programmer',
+                           users_notified: true)
+      repository.save(offer)
+      offer
+    end
+
+    it 'should load users_notified' do
+      obtained = repository.find(offer.id)
+      expect(obtained.users_notified).to eq(offer.users_notified)
+    end
+  end
 end
