@@ -83,5 +83,9 @@ describe JobOffer do
       job_offer.tags = 'tag1,tag2,tag3'
       expect(job_offer.tags_list).to eq(%w[tag1 tag2 tag3])
     end
+
+    it 'should return a empty list if tags property is not specified' do
+      expect(job_offer.tags_list).to eq([])
+    end
   end
 end
