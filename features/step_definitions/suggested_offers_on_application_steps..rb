@@ -7,6 +7,7 @@ Given('{string} offer exists in the offers list with tags {string}') do |offer, 
   @job_offer.tags = offer_tags
   @job_offer.is_active = true
 
+  @job_offerer_password = 'Passw0rd!'
   JobOfferRepository.new.save @job_offer
 end
 

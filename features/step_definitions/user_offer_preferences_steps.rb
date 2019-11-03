@@ -29,7 +29,17 @@ Given('User {string} is registered with prefered tags {string}') do |email, pref
 end
 
 When('Job Offer is first time activated') do
-  pending # Write code here that turns the phrase above into concrete actions
+  @job_offer.deactivate
+  repository = JobOfferRepository.new
+  repository.save @job_offer
+  visit '/login'
+  fill_in('user[email]', with: @job_offer.owner.email)
+  fill_in('user[password]', with: @job_offerer_password)
+  click_button('Login')
+  visit '/job_offers/my'
+  click_button('Activate offer')
+  jo = repository.find(@job_offer.id)
+  expect(jo.is_active).to be true
 end
 
 Then('User receive email with Job Offer info') do
