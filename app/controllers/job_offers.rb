@@ -36,7 +36,7 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
     @job_application = JobApplication.new
     so = SuggestedOffers.new(@job_offer)
-    so.add(JobOfferRepository.new.search_by_tags(@job_offer.tags))
+    so.add(JobOfferRepository.new.search_by_tags(@job_offer.tags_list))
     @suggested_offers = so.obtain
     # TODO: validate the current user is the owner of the offer
     render 'job_offers/apply'
@@ -69,7 +69,7 @@ JobVacancy::App.controllers :job_offers do
   post :create do
     @job_offer = JobOffer.new(job_offer_params)
     @job_offer.owner = current_user
-    if @job_offer.has_valid_tags && JobOfferRepository.new.save(@job_offer)
+    if JobOfferRepository.new.save(@job_offer)
       TwitterClient.publish(@job_offer) if params['create_and_twit']
       flash[:success] = 'Offer created'
       redirect '/job_offers/my'
@@ -83,7 +83,7 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOffer.new(job_offer_params.merge(id: params[:offer_id]))
     @job_offer.owner = current_user
 
-    if @job_offer.has_valid_tags && JobOfferRepository.new.save(@job_offer)
+    if JobOfferRepository.new.save(@job_offer)
       flash[:success] = 'Offer updated'
       redirect '/job_offers/my'
     else
@@ -94,7 +94,7 @@ JobVacancy::App.controllers :job_offers do
 
   put :activate, with: :offer_id do
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
-    @job_offer.activate
+    @job_offer.activate(UserRepository.new.find_by_matching_tags(@job_offer.tags_list))
     if JobOfferRepository.new.save(@job_offer)
       flash[:success] = 'Offer activated'
     else

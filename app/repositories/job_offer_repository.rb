@@ -19,14 +19,13 @@ class JobOfferRepository < BaseRepository
     end
   end
 
-  def search_by_tags(tags)
-    tags_array = tags.split(',')
-    return [] if tags_array.empty?
+  def search_by_tags(tags_list)
+    return [] if tags_list.empty?
 
-    seq = Sequel.like(:tags, "%#{tags_array[0]}%")
-    if tags_array.size > 1
-      (1..(tags_array.size - 1)).each do |index|
-        seq |= Sequel.like(:tags, "%#{tags_array[index]}%")
+    seq = Sequel.like(:tags, "%#{tags_list[0]}%")
+    if tags_list.size > 1
+      (1..(tags_list.size - 1)).each do |index|
+        seq |= Sequel.like(:tags, "%#{tags_list[index]}%")
       end
     end
     load_collection dataset.where(seq)
@@ -53,7 +52,8 @@ class JobOfferRepository < BaseRepository
       description: offer.description,
       tags: offer.tags,
       is_active: offer.is_active,
-      user_id: offer.owner&.id || offer.user_id
+      user_id: offer.owner&.id || offer.user_id,
+      users_notified: offer.users_notified
     }
   end
 end

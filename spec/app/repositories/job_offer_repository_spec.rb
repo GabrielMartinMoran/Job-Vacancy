@@ -66,7 +66,7 @@ describe JobOfferRepository do
     end
 
     it 'should retrieve offers with tag matches' do
-      result = repository.search_by_tags(main_offer.tags)
+      result = repository.search_by_tags(main_offer.tags_list)
       offer_programmer_db = repository.find(offer_programmer.id)
       offer_programmer_web_db = repository.find(offer_programmer_web.id)
       offer_programmer_web_ruby_db = repository.find(offer_programmer_web_ruby.id)
@@ -78,7 +78,7 @@ describe JobOfferRepository do
     end
 
     it 'should not retrieve offers with no tag matches' do
-      result = repository.search_by_tags(main_offer.tags)
+      result = repository.search_by_tags(main_offer.tags_list)
       offer_no_tags_db = repository.find(offer_no_tags.id)
       offer_other_tags_db = repository.find(offer_other_tags.id)
       main_offer_db = repository.find(offer_other_tags.id)
@@ -121,6 +121,23 @@ describe JobOfferRepository do
 
       not_updated_offer = repository.find(today_offer.id)
       expect(not_updated_offer.is_active).to eq true
+    end
+  end
+
+  describe 'find' do
+    let!(:offer) do
+      offer = JobOffer.new(title: 'a title',
+                           updated_on: Date.today,
+                           is_active: true,
+                           user_id: owner.id, tags: 'programmer',
+                           users_notified: true)
+      repository.save(offer)
+      offer
+    end
+
+    it 'should load users_notified' do
+      obtained = repository.find(offer.id)
+      expect(obtained.users_notified).to eq(offer.users_notified)
     end
   end
 end

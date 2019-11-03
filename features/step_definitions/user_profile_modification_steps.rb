@@ -24,6 +24,7 @@ Then('I should be in profile update page') do
   page.should have_content('Password')
   page.should have_content('Password confirmation')
   page.should have_content('Short bio')
+  page.should have_content('Prefered tags')
 end
 
 Given('I am in profile update page') do
@@ -33,8 +34,7 @@ end
 When('I update my name, short bio and prefered tags') do
   fill_in('user[name]', with: 'NewName')
   fill_in('user[short_bio]', with: 'B' * 50)
-  # pending prefered tags
-  # fill_in('user[prefered_tags]', with: 'NewName')
+  fill_in('user[prefered_tags]', with: 'tag1,tag2')
 end
 
 When('I click on save button') do
@@ -46,6 +46,7 @@ Then('My profile should be updated') do
   expect(obtained_user.email).to eq @logged_user.email
   expect(obtained_user.name).not_to eq @logged_user.name
   expect(obtained_user.short_bio).not_to eq @logged_user.short_bio
+  expect(obtained_user.prefered_tags).not_to eq @logged_user.prefered_tags
 end
 
 Then('My password should be not updated') do

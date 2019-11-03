@@ -1,19 +1,17 @@
-require_relative 'tags_normalizer'
+require_relative 'taggable'
 
 MAX_TAGS_QUANTITY = 3
 
 class JobOffer
   include ActiveModel::Validations
+  include Taggable
 
   attr_accessor :id, :user, :user_id, :title,
                 :location, :description, :is_active,
                 :updated_on, :created_on, :tags,
-                :applications_quantity
-
-  attr_reader :has_valid_tags
+                :applications_quantity, :users_notified
 
   validates :title, presence: true
-
   def initialize(data = {})
     @id = data[:id]
     @title = data[:title]
@@ -23,16 +21,9 @@ class JobOffer
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
     @user_id = data[:user_id]
-    parse_tags(data[:tags])
+    @tags = parse_tags(data[:tags], MAX_TAGS_QUANTITY)
     @applications_quantity = data[:applications_quantity] || 0
-  end
-
-  def parse_tags(tags)
-    @has_valid_tags = true
-    @tags = TagsNormalizer.new(MAX_TAGS_QUANTITY).normalize(tags || '')
-  rescue StandardError
-    @has_valid_tags = false
-    errors.add(:tags, 'Too much tags')
+    @users_notified = data[:users_notified] || false
   end
 
   def owner
@@ -43,8 +34,12 @@ class JobOffer
     self.user = a_user
   end
 
-  def activate
+  def activate(users_to_notify = [])
     self.is_active = true
+    return if @users_notified
+
+    deliver_offer_notification_email(users_to_notify)
+    @users_notified = true
   end
 
   def deactivate
@@ -53,5 +48,26 @@ class JobOffer
 
   def old_offer?
     (Date.today - updated_on) >= 30
+  end
+
+  def tags_list
+    @tags.split(',')
+  end
+
+  def valid?
+    unless @has_valid_tags
+      errors.add(:tags, 'Too much tags')
+      return false
+    end
+
+    super
+  end
+
+  private
+
+  def deliver_offer_notification_email(users_to_notify)
+    users_to_notify.each do |user|
+      JobVacancy::App.deliver(:notification, :offer_notification_email, self, user.email)
+    end
   end
 end
