@@ -1,6 +1,6 @@
 require_relative 'tags_normalizer'
 
-module Tageable
+module Taggable
   attr_accessor :has_valid_tags
   def parse_tags(raw_tags, max_tags)
     @has_valid_tags = true
