@@ -8,7 +8,7 @@ class JobOffer
   attr_accessor :id, :user, :user_id, :title,
                 :location, :description, :is_active,
                 :updated_on, :created_on, :tags,
-                :applications_quantity
+                :applications_quantity, :users_notified
 
   attr_reader :has_valid_tags
 
