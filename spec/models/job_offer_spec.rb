@@ -59,5 +59,12 @@ describe JobOffer do
       expect(offer.users_notified).to be true
       expect(offer.is_active).to be true
     end
+
+    it 'should not deliver emails if users_notified is false and there is no users to notify' do
+      expect(JobVacancy::App).not_to receive(:deliver)
+      offer.activate
+      expect(offer.users_notified).to be true
+      expect(offer.is_active).to be true
+    end
   end
 end
