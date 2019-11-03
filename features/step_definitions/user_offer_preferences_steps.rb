@@ -18,8 +18,14 @@ Then('I should see a message indicating error on prefered tags') do
   page.should have_content('Too much prefered tags')
 end
 
-Given('User {string} is registered with prefered tags {string}') do |_string, _string2|
-  pending # Write code here that turns the phrase above into concrete actions
+Given('User {string} is registered with prefered tags {string}') do |email, prefered_tags|
+  @user = User.new(name: 'John Doe',
+                   email: email,
+                   password: 'PassW0rd!123',
+                   short_bio: 'A' * 50,
+                   prefered_tags: prefered_tags)
+
+  UserRepository.new.save @user
 end
 
 When('Job Offer is first time activated') do

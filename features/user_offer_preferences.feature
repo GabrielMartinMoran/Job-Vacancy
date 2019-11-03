@@ -12,7 +12,7 @@ Feature: User Offer prefered tags
     Given I access to the register page
     When I try to register with prefered tags "python,ruby,web,developer,programmer,whitespace,basic,c,cpp,devops,java"
     Then I should see a message indicating error on prefered tags
-  @wip
+
   Scenario: Notification on job offer activation with matching prefered tags
     Given User "notified@test.com" is registered with prefered tags "developer,python"
     And "Web Programmer" offer exists in the offers list with tags "ruby,developer"
