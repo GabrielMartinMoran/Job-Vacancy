@@ -42,4 +42,22 @@ describe JobOffer do
       expect(job_offer.users_notified).to be false
     end
   end
+
+  describe 'activate' do
+    let!(:offer) do
+      described_class.new(id: -999,
+                          title: 'a title',
+                          description: 'a description',
+                          location: 'a location')
+    end
+
+    it 'should deliver offer info notification when users_notified is false' do
+      users_to_notify = [User.new(email: 'user_notify_1@test.com'),
+                         User.new(email: 'user_notify_2@test.com')]
+      expect(JobVacancy::App).to receive(:deliver).twice
+      offer.activate(users_to_notify)
+      expect(offer.users_notified).to be true
+      expect(offer.is_active).to be true
+    end
+  end
 end

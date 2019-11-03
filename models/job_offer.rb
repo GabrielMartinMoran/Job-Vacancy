@@ -46,8 +46,10 @@ class JobOffer
     self.user = a_user
   end
 
-  def activate
+  def activate(users_to_notify = [])
+    @users_notified = true
     self.is_active = true
+    deliver_offer_notification_email(users_to_notify)
   end
 
   def deactivate
@@ -56,5 +58,13 @@ class JobOffer
 
   def old_offer?
     (Date.today - updated_on) >= 30
+  end
+
+  private
+
+  def deliver_offer_notification_email(users_to_notify)
+    users_to_notify.each do |user|
+      JobVacancy::App.deliver(:notification, :offer_notification_email, self, user.email)
+    end
   end
 end
