@@ -50,5 +50,12 @@ describe UserRepository do
       expect(result.map(&:id)).to include(user1.id, user2.id)
       expect(result.size).to eq(2)
     end
+
+    it 'should not return duplicated users when more than one tag matches' do
+      prefered_tags = %w[prefered_tag3 prefered_tag4]
+      result = repository.find_by_matching_tags(prefered_tags)
+      expect(result.map(&:id)).to include(user1.id, user2.id)
+      expect(result.size).to eq(2)
+    end
   end
 end
