@@ -64,7 +64,14 @@ When('Job Offer is deactivated') do
 end
 
 When('Job Offer is activated') do
-  pending # Write code here that turns the phrase above into concrete actions
+  visit '/login'
+  fill_in('user[email]', with: @job_offer.owner.email)
+  fill_in('user[password]', with: @job_offerer_password)
+  click_button('Login')
+  visit '/job_offers/my'
+  click_button('Activate offer')
+  jo = JobOfferRepository.new.find(@job_offer.id)
+  expect(jo.is_active).to be true
 end
 
 Then('User should not receive an email with Job Offer info') do
