@@ -26,7 +26,7 @@ Feature: User Offer prefered tags
     When Job Offer is deactivated
     And Job Offer is activated
     Then User should not receive an email with Job Offer info
-  @wip
+
   Scenario: No notification email is sent when tags not matches
     Given User "no_notified@test.com" is registered with prefered tags "php"
     And "Java Developer" offer exists in the offers list with tags "java,developer"
