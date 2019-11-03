@@ -1,10 +1,10 @@
-Job Vacancy Board
-=================
-
-This Job Offer may match with your preferences:
-
-* Title: <%= job_offer.title %>
-* Location: <%= job_offer.location %>
-* Description: <%= job_offer.description %>
-
-If you want to apply to this Job, you can go to: <%= "#{host}/job_offers/apply/#{job_offer.id}" %>
+Job Vacancy Board<br>
+=================<br>
+<br>
+This Job Offer may match with your preferences: <br>
+<br>
+* Title: <%= job_offer.title %> <br>
+* Location: <%= job_offer.location %> <br>
+* Description: <%= job_offer.description %> <br>
+<br>
+If you want to apply to this Job Offer, you can <a href="<%= "#{host}/job_offers/apply/#{job_offer.id}" %>">click here</a>.
