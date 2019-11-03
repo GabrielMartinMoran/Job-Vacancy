@@ -9,6 +9,8 @@
   <%= f.password_field :password_confirmation %>
   <%= f.label :short_bio %>
   <%= f.text_area :short_bio, style: 'width:65%;' %>
+  <%= f.label :prefered_tags %>
+  <%= f.text_field :prefered_tags, style: 'width:65%;' %>
   <br/>
   <%= f.submit "Save", :class => "btn btn-primary" %>
 <% end %>

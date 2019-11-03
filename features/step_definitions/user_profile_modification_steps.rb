@@ -33,8 +33,7 @@ end
 When('I update my name, short bio and prefered tags') do
   fill_in('user[name]', with: 'NewName')
   fill_in('user[short_bio]', with: 'B' * 50)
-  # pending prefered tags
-  # fill_in('user[prefered_tags]', with: 'NewName')
+  fill_in('user[prefered_tags]', with: 'tag1,tag2')
 end
 
 When('I click on save button') do
