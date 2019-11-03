@@ -26,7 +26,7 @@ class JobOffer
     @user_id = data[:user_id]
     parse_tags(data[:tags])
     @applications_quantity = data[:applications_quantity] || 0
-    @users_notified = data[:users_notified]
+    @users_notified = data[:users_notified] || false
   end
   # rubocop:enable Metrics/AbcSize
 

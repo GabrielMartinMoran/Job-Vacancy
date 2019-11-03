@@ -36,5 +36,10 @@ describe JobOffer do
       job_offer = described_class.new(users_notified: true)
       expect(job_offer.users_notified).to be true
     end
+
+    it 'should set users_notified with false if not provided' do
+      job_offer = described_class.new
+      expect(job_offer.users_notified).to be false
+    end
   end
 end
