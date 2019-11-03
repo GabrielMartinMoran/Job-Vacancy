@@ -3,7 +3,7 @@ MAX_SUGGESTIONS = 3
 class SuggestedOffers
   def initialize(job_offer)
     @job_offer_id = job_offer.id
-    @main_offer_tags = job_offer.tags.split(',')
+    @main_offer_tags = job_offer.tags_list
     @all_offers = Set.new
   end
 
@@ -51,7 +51,7 @@ class SuggestedOffers
   def obtain_matches
     matches = {}
     @all_offers.each do |job_offer|
-      job_offer_tags = job_offer.tags.split(',')
+      job_offer_tags = job_offer.tags_list
       job_offer_tags.each do |tag|
         if @main_offer_tags.include?(tag)
           if matches.key?(job_offer)
