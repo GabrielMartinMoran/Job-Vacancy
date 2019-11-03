@@ -18,7 +18,7 @@ Feature: User Offer prefered tags
     And "Web Programmer" offer exists in the offers list with tags "ruby,developer"
     When Job Offer is first time activated
     Then User receive email with Job Offer info
-  @wip
+
   Scenario: Notification sent just on first job offer activation
     Given User "notified2@test.com" is registered with prefered tags "net"
     And "Net Developer" offer exists in the offers list with tags "net,developer"

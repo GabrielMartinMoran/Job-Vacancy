@@ -53,7 +53,9 @@ Then('User receive email with Job Offer info') do
 end
 
 Given('Job Offer was already activated') do
-  pending # Write code here that turns the phrase above into concrete actions
+  @job_offer.users_notified = true
+  @job_offer.is_active = true
+  JobOfferRepository.new.save @job_offer
 end
 
 When('Job Offer is deactivated') do
