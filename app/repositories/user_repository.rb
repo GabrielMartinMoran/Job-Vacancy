@@ -7,6 +7,11 @@ class UserRepository < BaseRepository
     load_object(row) unless row.nil?
   end
 
+  def find_by_matching_tags(tags)
+    regex = Regexp.new("(,|^)(#{tags.join('|')})(,|$)")
+    load_collection dataset.where(prefered_tags: regex)
+  end
+
   protected
 
   def changeset(user)
