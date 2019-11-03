@@ -14,6 +14,7 @@ class JobOffer
 
   validates :title, presence: true
 
+  # rubocop:disable Metrics/AbcSize
   def initialize(data = {})
     @id = data[:id]
     @title = data[:title]
@@ -25,7 +26,9 @@ class JobOffer
     @user_id = data[:user_id]
     parse_tags(data[:tags])
     @applications_quantity = data[:applications_quantity] || 0
+    @users_notified = data[:users_notified]
   end
+  # rubocop:enable Metrics/AbcSize
 
   def parse_tags(tags)
     @has_valid_tags = true

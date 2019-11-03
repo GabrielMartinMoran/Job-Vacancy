@@ -30,4 +30,11 @@ describe JobOffer do
       expect(job_offer).to be_valid
     end
   end
+
+  describe 'initialize' do
+    it 'should set users_notified with provided value' do
+      job_offer = described_class.new(users_notified: true)
+      expect(job_offer.users_notified).to be true
+    end
+  end
 end
