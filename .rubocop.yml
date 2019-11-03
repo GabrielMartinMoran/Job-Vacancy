@@ -9,7 +9,7 @@ Metrics/LineLength:
   Max: 120
   IgnoredPatterns: ['(When|Given|Then)', '(get|post|put)']
 Metrics/AbcSize:
-  Max: 16
+  Max: 17
 Naming/PredicateName:
   Enabled: false
 Style/FrozenStringLiteralComment:
