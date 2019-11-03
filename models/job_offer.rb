@@ -1,4 +1,4 @@
-require_relative 'tags_normalizer'
+require_relative 'taggable'
 
 MAX_TAGS_QUANTITY = 3
 

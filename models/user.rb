@@ -1,8 +1,9 @@
 require_relative 'secure_password'
-require_relative 'tags_normalizer'
+require_relative 'taggable'
 
 class User
   include ActiveModel::Validations
+  include Taggable
 
   attr_accessor :id, :name, :email, :crypted_password, :job_offers, :updated_on, :created_on,
                 :short_bio, :login_failed_attempts, :last_lock_date, :prefered_tags
@@ -33,7 +34,7 @@ class User
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
     @short_bio = data[:short_bio]
-    parse_tags(data[:prefered_tags])
+    @prefered_tags = parse_tags(data[:prefered_tags], MAX_PREFERED_TAGS)
     load_lock_data(data)
   end
 
@@ -99,12 +100,5 @@ class User
   def load_lock_data(data)
     @login_failed_attempts = data[:login_failed_attempts] || 0
     @last_lock_date = data[:last_lock_date]
-  end
-
-  def parse_tags(prefered_tags)
-    @has_valid_tags = true
-    @prefered_tags = TagsNormalizer.new(MAX_PREFERED_TAGS).normalize(prefered_tags || '')
-  rescue StandardError
-    @has_valid_tags = false
   end
 end
