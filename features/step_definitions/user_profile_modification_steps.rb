@@ -24,6 +24,7 @@ Then('I should be in profile update page') do
   page.should have_content('Password')
   page.should have_content('Password confirmation')
   page.should have_content('Short bio')
+  page.should have_content('Prefered tags')
 end
 
 Given('I am in profile update page') do
