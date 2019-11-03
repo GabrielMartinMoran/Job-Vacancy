@@ -23,5 +23,10 @@ describe Taggable do
       expect(taggable_dummy.parse_tags('tag1', 1)).to eq 'tag1'
       expect(taggable_dummy.has_valid_tags).to be true
     end
+
+    it 'should set has_valid_tags to false when tags are not parsed correctly' do
+      expect(taggable_dummy.parse_tags('tag1,tag2', 1)).to be nil
+      expect(taggable_dummy.has_valid_tags).to be false
+    end
   end
 end
