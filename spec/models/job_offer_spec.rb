@@ -29,6 +29,13 @@ describe JobOffer do
       job_offer = described_class.new(title: 'a title')
       expect(job_offer).to be_valid
     end
+
+    it 'should be false when tags are greather than 3' do
+      user = described_class.new(title: 'John Doe Offer',
+                                 tags: '1,2,3,4')
+      expect(user.valid?).to eq false
+      expect(user.errors).to have_key(:tags)
+    end
   end
 
   describe 'initialize' do

@@ -63,6 +63,15 @@ class JobOffer
     @tags.split(',')
   end
 
+  def valid?
+    unless @has_valid_tags
+      errors.add(:tags, 'Too much tags')
+      return false
+    end
+
+    super
+  end
+
   private
 
   def deliver_offer_notification_email(users_to_notify)
