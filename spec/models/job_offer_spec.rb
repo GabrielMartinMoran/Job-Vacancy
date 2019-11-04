@@ -45,6 +45,12 @@ describe JobOffer do
       job_offer.max_valid_date = Time.new - 24 * 3600
       expect(job_offer.showable?).to eq false
     end
+
+    it 'should be true when max_valid_date not expired' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = Time.new + 24 * 3600
+      expect(job_offer.showable?).to eq true
+    end
   end
 
   describe 'initialize' do
