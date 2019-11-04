@@ -22,6 +22,7 @@ class JobOffer
     @tags = parse_tags(data[:tags], MAX_TAGS_QUANTITY)
     @applications_quantity = data[:applications_quantity] || 0
     @users_notified = data[:users_notified] || false
+    @max_valid_date = data[:max_valid_date]
   end
 
   def owner

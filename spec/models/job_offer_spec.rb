@@ -63,6 +63,11 @@ describe JobOffer do
       job_offer = described_class.new
       expect(job_offer.users_notified).to be false
     end
+
+    it 'should set max_valid_date with provided value' do
+      job_offer = described_class.new(max_valid_date: Time.new(0))
+      expect(job_offer.max_valid_date).to eq Time.new(0)
+    end
   end
 
   describe 'activate' do
