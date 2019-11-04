@@ -131,7 +131,7 @@ describe JobOfferRepository do
                            is_active: true,
                            user_id: owner.id, tags: 'programmer',
                            users_notified: true,
-                           max_valid_date: Time.new(2019))
+                           max_valid_date: Date.new(2019))
       repository.save(offer)
       offer
     end
@@ -143,7 +143,7 @@ describe JobOfferRepository do
 
     it 'should load max_valid_date' do
       obtained = repository.find(offer.id)
-      expect(obtained.max_valid_date).to eq(offer.max_valid_date)
+      expect(obtained.max_valid_date.to_s).to eq(offer.max_valid_date.to_s)
     end
   end
 end

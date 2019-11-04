@@ -42,13 +42,13 @@ describe JobOffer do
   describe 'showable?' do
     it 'should be false when max_valid_date expired' do
       job_offer = described_class.new(title: 'a title')
-      job_offer.max_valid_date = Time.new - 24 * 3600
+      job_offer.max_valid_date = Date.today - 1
       expect(job_offer.showable?).to eq false
     end
 
     it 'should be true when max_valid_date not expired' do
       job_offer = described_class.new(title: 'a title')
-      job_offer.max_valid_date = Time.new + 24 * 3600
+      job_offer.max_valid_date = Date.today + 1
       expect(job_offer.showable?).to eq true
     end
   end
@@ -65,8 +65,8 @@ describe JobOffer do
     end
 
     it 'should set max_valid_date with provided value' do
-      job_offer = described_class.new(max_valid_date: Time.new(0))
-      expect(job_offer.max_valid_date).to eq Time.new(0)
+      job_offer = described_class.new(max_valid_date: Date.new(2019))
+      expect(job_offer.max_valid_date).to eq Date.new(2019)
     end
   end
 

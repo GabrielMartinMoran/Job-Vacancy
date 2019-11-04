@@ -63,7 +63,7 @@ class JobOffer
   end
 
   def showable?
-    @max_valid_date >= Time.new
+    @max_valid_date >= Date.today
   end
 
   private
