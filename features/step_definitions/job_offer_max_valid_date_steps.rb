@@ -3,6 +3,11 @@ When('And I fill max valid date with {string} date') do |date|
   fill_in('job_offer[max_valid_date]', with: dates[date])
 end
 
+When('I active the offer') do
+  visit '/job_offers/my'
+  click_button('Activate offer')
+end
+
 Then('I should see {string} in Offers list') do |_job_offer|
   pending # Write code here that turns the phrase above into concrete actions
 end

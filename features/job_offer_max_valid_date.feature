@@ -11,6 +11,7 @@ Feature: Job Offer max valid date
     When I fill the title with "Programmer vacancy"
     And And I fill max valid date with "tomorrow" date
     And confirm the new offer
+    And I active the offer
     Then I should see "Programmer vacancy" in Offers list
   @wip
   Scenario: Offer with max valid date older than today is not listed in job offers list
@@ -18,6 +19,7 @@ Feature: Job Offer max valid date
     When I fill the title with "Programmer vacancy"
     And And I fill max valid date with "yesterday" date
     And confirm the new offer
+    And I active the offer
     Then I should not see "Programmer vacancy" in Offers list
   @wip
   Scenario: Offer with max valid date older than today is marked as expired in my offers
@@ -34,6 +36,7 @@ Feature: Job Offer max valid date
     And I fill the tags with "programmer,web,ruby"
     And And I fill max valid date with "yesterday" date
     And confirm the new offer
+    And I active the offer
     And I try to access to "Ruby Web Programmer" the offer page
     Then I should see 0 suggested offers
   @wip
@@ -42,5 +45,6 @@ Feature: Job Offer max valid date
     When I fill the title with "Expired Programmer vacancy"
     And And I fill max valid date with "yesterday" date
     And confirm the new offer
+    And I active the offer
     And I try to access to "Expired Programmer vacancy" the offer page
     Then I should see a message indicating expired offer
