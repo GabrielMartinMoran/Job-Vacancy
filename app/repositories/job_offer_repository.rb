@@ -53,7 +53,8 @@ class JobOfferRepository < BaseRepository
       tags: offer.tags,
       is_active: offer.is_active,
       user_id: offer.owner&.id || offer.user_id,
-      users_notified: offer.users_notified
+      users_notified: offer.users_notified,
+      max_valid_date: offer.max_valid_date
     }
   end
 end

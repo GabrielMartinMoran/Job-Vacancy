@@ -130,7 +130,8 @@ describe JobOfferRepository do
                            updated_on: Date.today,
                            is_active: true,
                            user_id: owner.id, tags: 'programmer',
-                           users_notified: true)
+                           users_notified: true,
+                           max_valid_date: Time.new(2019))
       repository.save(offer)
       offer
     end
@@ -138,6 +139,11 @@ describe JobOfferRepository do
     it 'should load users_notified' do
       obtained = repository.find(offer.id)
       expect(obtained.users_notified).to eq(offer.users_notified)
+    end
+
+    it 'should load max_valid_date' do
+      obtained = repository.find(offer.id)
+      expect(obtained.max_valid_date).to eq(offer.max_valid_date)
     end
   end
 end
