@@ -1,5 +1,6 @@
-When('And I fill max valid date with {string} date') do |_date|
-  pending # Write code here that turns the phrase above into concrete actions
+When('And I fill max valid date with {string} date') do |date|
+  dates = { 'Tomorrow' => Date.today + 1, 'Yesterday' => Date.today - 1 }
+  fill_in('job_offer[max_valid_date]', with: dates[date])
 end
 
 Then('I should see {string} in Offers list') do |_job_offer|
