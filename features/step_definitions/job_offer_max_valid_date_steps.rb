@@ -8,8 +8,9 @@ When('I active the offer') do
   click_button('Activate offer')
 end
 
-Then('I should see {string} in Offers list') do |_job_offer|
-  pending # Write code here that turns the phrase above into concrete actions
+Then('I should see {string} in Offers list') do |job_offer_title|
+  visit '/job_offers/latest'
+  page.should have_content(job_offer_title)
 end
 
 Then('I should not see {string} in Offers list') do |_job_offer|
