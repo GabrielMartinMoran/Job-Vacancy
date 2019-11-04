@@ -6,10 +6,8 @@ class JobOffer
   include ActiveModel::Validations
   include Taggable
 
-  attr_accessor :id, :user, :user_id, :title,
-                :location, :description, :is_active,
-                :updated_on, :created_on, :tags,
-                :applications_quantity, :users_notified
+  attr_accessor :id, :user, :user_id, :title, :location, :description, :is_active, :updated_on, :created_on, :tags,
+                :applications_quantity, :users_notified, :max_valid_date
 
   validates :title, presence: true
   def initialize(data = {})
@@ -61,6 +59,10 @@ class JobOffer
     end
 
     super
+  end
+
+  def showable?
+    @max_valid_date >= Time.new
   end
 
   private

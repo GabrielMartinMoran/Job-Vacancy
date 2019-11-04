@@ -5,7 +5,7 @@ Feature: Job Offer max valid date
 
   Background:
     Given I am logged in as job offerer
-  @wip
+
   Scenario: Specify max valid date in my offer
     Given I access the new offer page
     When I fill the title with "Programmer vacancy"

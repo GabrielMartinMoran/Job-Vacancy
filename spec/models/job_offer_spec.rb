@@ -16,6 +16,7 @@ describe JobOffer do
     it { is_expected.to respond_to(:tags) }
     it { is_expected.to respond_to(:applications_quantity) }
     it { is_expected.to respond_to(:users_notified) }
+    it { is_expected.to respond_to(:max_valid_date) }
   end
 
   describe 'valid?' do
@@ -35,6 +36,14 @@ describe JobOffer do
                                  tags: '1,2,3,4')
       expect(user.valid?).to eq false
       expect(user.errors).to have_key(:tags)
+    end
+  end
+
+  describe 'showable?' do
+    it 'should be false when max_valid_date expired' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = Time.new - 24 * 3600
+      expect(job_offer.showable?).to eq false
     end
   end
 
