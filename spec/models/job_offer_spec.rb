@@ -39,6 +39,14 @@ describe JobOffer do
     end
   end
 
+  describe 'expired?' do
+    it 'should be true when max_valid_date is older than today' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = Date.today - 1
+      expect(job_offer.expired?).to eq true
+    end
+  end
+
   describe 'showable?' do
     it 'should be false when max_valid_date expired and is_active' do
       job_offer = described_class.new(title: 'a title', is_active: true)

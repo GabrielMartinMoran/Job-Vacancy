@@ -71,7 +71,11 @@ class JobOffer
   end
 
   def showable?
-    (@max_valid_date.nil? || @max_valid_date >= Date.today) && @is_active == true
+    !expired? && @is_active == true
+  end
+
+  def expired?
+    (!@max_valid_date.nil? && @max_valid_date < Date.today)
   end
 
   private
