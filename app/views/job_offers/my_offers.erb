@@ -29,7 +29,9 @@
 			<%= offer.applications_quantity %>
 		</td>
 		<td>
-			<span class="badge badge-warning">expired</span>
+			<% if offer.expired? %>
+				<span class="badge badge-warning">expired</span>
+			<% end %>
 			<%= offer.max_valid_date %>
 		</td>
 		<td>
