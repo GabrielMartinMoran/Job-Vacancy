@@ -20,7 +20,7 @@ JobVacancy::App.controllers :job_offers do
   end
 
   get :latest do
-    @offers = JobOfferRepository.new.all_active
+    @offers = JobOfferRepository.new.all_showable
     render 'job_offers/list'
   end
 
@@ -67,7 +67,7 @@ JobVacancy::App.controllers :job_offers do
   end
 
   post :create do
-    @job_offer = JobOffer.new(job_offer_params)
+    @job_offer = JobOffer.new(job_offer_params.merge(max_valid_date: parse_max_valid_date))
     @job_offer.owner = current_user
     if JobOfferRepository.new.save(@job_offer)
       TwitterClient.publish(@job_offer) if params['create_and_twit']

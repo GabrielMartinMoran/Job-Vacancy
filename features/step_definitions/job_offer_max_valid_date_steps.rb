@@ -1,6 +1,6 @@
 When('And I fill max valid date with {string} date') do |date|
-  dates = { 'Tomorrow' => Date.today + 1, 'Yesterday' => Date.today - 1 }
-  fill_in('job_offer[max_valid_date]', with: dates[date])
+  dates = { 'tomorrow' => Date.today + 1, 'yesterday' => Date.today - 1 }
+  fill_in('job_offer[max_valid_date]', with: dates[date].to_s)
 end
 
 When('I active the offer') do
@@ -13,8 +13,9 @@ Then('I should see {string} in Offers list') do |job_offer_title|
   page.should have_content(job_offer_title)
 end
 
-Then('I should not see {string} in Offers list') do |_job_offer|
-  pending # Write code here that turns the phrase above into concrete actions
+Then('I should not see {string} in Offers list') do |job_offer_title|
+  visit '/job_offers/latest'
+  page.should_not have_content(job_offer_title)
 end
 
 Then('I should see a label {string} in my offers for this offer') do |_label|
