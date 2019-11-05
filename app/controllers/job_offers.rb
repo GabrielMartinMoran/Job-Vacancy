@@ -34,6 +34,11 @@ JobVacancy::App.controllers :job_offers do
     return redirect "/login?redirect_to=/job_offers/apply/#{params[:offer_id]}" unless signed_in?
 
     @job_offer = JobOfferRepository.new.find(params[:offer_id])
+    if @job_offer.expired?
+      flash.now[:error] = 'This Job Offer has expired'
+      @offers = JobOfferRepository.new.all_active
+      return render 'job_offers/list'
+    end
     @job_application = JobApplication.new
     so = SuggestedOffers.new(@job_offer)
     so.add(JobOfferRepository.new.search_by_tags(@job_offer.tags_list))
@@ -80,7 +85,7 @@ JobVacancy::App.controllers :job_offers do
   end
 
   post :update, with: :offer_id do
-    @job_offer = JobOffer.new(job_offer_params.merge(id: params[:offer_id]))
+    @job_offer = JobOffer.new(job_offer_params.merge(id: params[:offer_id], max_valid_date: parse_max_valid_date))
     @job_offer.owner = current_user
 
     if JobOfferRepository.new.save(@job_offer)

@@ -34,5 +34,5 @@ When('I try to access to {string} the offer page') do |job_offer|
 end
 
 Then('I should see a message indicating expired offer') do
-  pending # Write code here that turns the phrase above into concrete actions
+  page.should have_content('This Job Offer has expired')
 end

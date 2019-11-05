@@ -46,7 +46,7 @@ Feature: Job Offer max valid date
     And I active the offer
     And I try to access to "Ruby Web Programmer" the offer page
     Then I should see 0 suggested offers
-  @wip
+
   Scenario: Try to apply to an expirated offer
     Given I access the new offer page
     When I fill the title with "Expired Programmer vacancy"
