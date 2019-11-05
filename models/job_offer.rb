@@ -71,7 +71,7 @@ class JobOffer
   end
 
   def showable?
-    @max_valid_date >= Date.today
+    @max_valid_date >= Date.today && @is_active == true
   end
 
   private
