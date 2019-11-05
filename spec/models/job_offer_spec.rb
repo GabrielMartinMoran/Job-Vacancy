@@ -57,6 +57,12 @@ describe JobOffer do
       job_offer.max_valid_date = Date.today + 1
       expect(job_offer.showable?).to eq false
     end
+
+    it 'should be true when max_valid_date is nil and is_active' do
+      job_offer = described_class.new(title: 'a title', is_active: true)
+      job_offer.max_valid_date = nil
+      expect(job_offer.showable?).to eq true
+    end
   end
 
   describe 'initialize' do
