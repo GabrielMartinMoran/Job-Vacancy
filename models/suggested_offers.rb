@@ -15,7 +15,7 @@ class SuggestedOffers
 
   def add(job_offers)
     job_offers.each do |job_offer|
-      @all_offers.add(job_offer) if @job_offer_id != job_offer.id && job_offer.is_active
+      @all_offers.add(job_offer) if @job_offer_id != job_offer.id && job_offer.is_active && !job_offer.expired?
     end
   end
 

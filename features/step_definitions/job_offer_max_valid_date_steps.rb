@@ -28,8 +28,9 @@ Then('I should not see a label {string} in my offers for this offer') do |label|
   page.should_not have_content(label)
 end
 
-When('I try to access to {string} the offer page') do |_job_offer|
-  pending # Write code here that turns the phrase above into concrete actions
+When('I try to access to {string} the offer page') do |job_offer|
+  job_offer_id = JobOfferRepository.new.search_by_title(job_offer).first.id
+  visit '/job_offers/apply/' + job_offer_id.to_s
 end
 
 Then('I should see a message indicating expired offer') do

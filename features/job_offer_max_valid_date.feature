@@ -35,7 +35,7 @@ Feature: Job Offer max valid date
     And And I fill max valid date with "tomorrow" date
     And confirm the new offer
     Then I should not see a label "expired" in my offers for this offer
-  @wip
+
   Scenario: Offer with expired date is not showed in suggested offers
     Given "Ruby Web Programmer" offer exists in the offers list with tags "programmer,web,ruby"
     And I access the new offer page

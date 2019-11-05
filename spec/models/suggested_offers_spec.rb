@@ -82,5 +82,12 @@ describe SuggestedOffers do
       suggested_offers.add([job_offer])
       expect(suggested_offers.obtain).not_to include(job_offer)
     end
+
+    it 'should not return expired offers in array' do
+      expired_job_offer = JobOffer.new(id: 2, is_active: true, max_valid_date: Date.today - 1,
+                                       title: 'a title', tags: 'ruby')
+      suggested_offers.add([expired_job_offer])
+      expect(suggested_offers.obtain).not_to include(expired_job_offer)
+    end
   end
 end
