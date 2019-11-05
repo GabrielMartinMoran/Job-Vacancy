@@ -7,8 +7,9 @@ class JobOfferRepository < BaseRepository
   end
 
   def all_showable
-    seq = Sequel.lit("(max_valid_date >= '#{Date.today}' OR max_valid_date IS NULL) AND is_active IS TRUE")
-    load_collection dataset.where(seq)
+    load_collection dataset.where(
+      Sequel.lit("(max_valid_date >= '#{Date.today}' OR max_valid_date IS NULL) AND is_active IS TRUE")
+    )
   end
 
   def find_by_owner(user)
