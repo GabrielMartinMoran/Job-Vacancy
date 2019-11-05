@@ -21,7 +21,7 @@ Feature: Job Offer max valid date
     And confirm the new offer
     And I active the offer
     Then I should not see "Programmer web vacancy" in Offers list
-  @wip
+
   Scenario: Offer with max valid date older than today is marked as expired in my offers
     Given I access the new offer page
     When I fill the title with "Programmer vacancy"

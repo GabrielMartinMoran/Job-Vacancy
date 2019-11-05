@@ -18,8 +18,9 @@ Then('I should not see {string} in Offers list') do |job_offer_title|
   page.should_not have_content(job_offer_title)
 end
 
-Then('I should see a label {string} in my offers for this offer') do |_label|
-  pending # Write code here that turns the phrase above into concrete actions
+Then('I should see a label {string} in my offers for this offer') do |label|
+  visit '/job_offers/my'
+  page.should have_content(label)
 end
 
 When('I try to access to {string} the offer page') do |_job_offer|
