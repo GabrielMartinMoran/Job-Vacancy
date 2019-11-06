@@ -88,6 +88,8 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOffer.new(job_offer_params.merge(id: params[:offer_id], max_valid_date: parse_max_valid_date))
     @job_offer.owner = current_user
 
+    @job_offer.users_notified = JobOfferRepository.new.find(@job_offer.id).users_notified
+
     if JobOfferRepository.new.save(@job_offer)
       flash[:success] = 'Offer updated'
       redirect '/job_offers/my'
