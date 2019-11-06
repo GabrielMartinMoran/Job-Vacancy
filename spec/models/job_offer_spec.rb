@@ -16,6 +16,7 @@ describe JobOffer do
     it { is_expected.to respond_to(:tags) }
     it { is_expected.to respond_to(:applications_quantity) }
     it { is_expected.to respond_to(:users_notified) }
+    it { is_expected.to respond_to(:max_valid_date) }
   end
 
   describe 'valid?' do
@@ -38,6 +39,58 @@ describe JobOffer do
     end
   end
 
+  describe 'expired?' do
+    it 'should be true when max_valid_date is older than today' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = Date.today - 1
+      expect(job_offer.expired?).to eq true
+    end
+
+    it 'should be false when max_valid_date is newer than today' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = Date.today + 1
+      expect(job_offer.expired?).to eq false
+    end
+
+    it 'should be false when max_valid_date is today' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = Date.today
+      expect(job_offer.expired?).to eq false
+    end
+
+    it 'should be false when max_valid_date is nil' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = nil
+      expect(job_offer.expired?).to eq false
+    end
+  end
+
+  describe 'showable?' do
+    it 'should be false when max_valid_date expired and is_active' do
+      job_offer = described_class.new(title: 'a title', is_active: true)
+      job_offer.max_valid_date = Date.today - 1
+      expect(job_offer.showable?).to eq false
+    end
+
+    it 'should be true when max_valid_date not expired and is_active' do
+      job_offer = described_class.new(title: 'a title', is_active: true)
+      job_offer.max_valid_date = Date.today + 1
+      expect(job_offer.showable?).to eq true
+    end
+
+    it 'should be false when max_valid_date not expired and not is_active' do
+      job_offer = described_class.new(title: 'a title', is_active: false)
+      job_offer.max_valid_date = Date.today + 1
+      expect(job_offer.showable?).to eq false
+    end
+
+    it 'should be true when max_valid_date is nil and is_active' do
+      job_offer = described_class.new(title: 'a title', is_active: true)
+      job_offer.max_valid_date = nil
+      expect(job_offer.showable?).to eq true
+    end
+  end
+
   describe 'initialize' do
     it 'should set users_notified with provided value' do
       job_offer = described_class.new(users_notified: true)
@@ -47,6 +100,11 @@ describe JobOffer do
     it 'should set users_notified with false if not provided' do
       job_offer = described_class.new
       expect(job_offer.users_notified).to be false
+    end
+
+    it 'should set max_valid_date with provided value' do
+      job_offer = described_class.new(max_valid_date: Date.new(2019))
+      expect(job_offer.max_valid_date).to eq Date.new(2019)
     end
   end
 

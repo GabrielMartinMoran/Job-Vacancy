@@ -6,10 +6,8 @@ class JobOffer
   include ActiveModel::Validations
   include Taggable
 
-  attr_accessor :id, :user, :user_id, :title,
-                :location, :description, :is_active,
-                :updated_on, :created_on, :tags,
-                :applications_quantity, :users_notified
+  attr_accessor :id, :user, :user_id, :title, :location, :description, :is_active, :updated_on, :created_on, :tags,
+                :applications_quantity, :users_notified, :max_valid_date
 
   validates :title, presence: true
   def initialize(data = {})
@@ -24,6 +22,7 @@ class JobOffer
     @tags = parse_tags(data[:tags], MAX_TAGS_QUANTITY)
     @applications_quantity = data[:applications_quantity] || 0
     @users_notified = data[:users_notified] || false
+    @max_valid_date = data[:max_valid_date]
   end
 
   def owner
@@ -55,12 +54,28 @@ class JobOffer
   end
 
   def valid?
+    valid = true
+    unless max_valid_date.nil?
+      unless Date.valid_date?(max_valid_date.year, max_valid_date.month, max_valid_date.day)
+        errors.add(:tags, 'Invalid Date')
+        valid = false
+      end
+    end
     unless @has_valid_tags
       errors.add(:tags, 'Too much tags')
-      return false
+      valid = false
     end
+    return false unless valid
 
     super
+  end
+
+  def showable?
+    !expired? && @is_active == true
+  end
+
+  def expired?
+    (!@max_valid_date.nil? && @max_valid_date < Date.today)
   end
 
   private

@@ -6,6 +6,7 @@
 		<th>Description</th>
 		<th>Tags</th>
 		<th>Applications quantity</th>
+		<th>Max Valid Date</th>
 		<th>Is active</th>
 		<th>Actions</th>
 	</tr>
@@ -26,6 +27,12 @@
 		</td>
 		<td>
 			<%= offer.applications_quantity %>
+		</td>
+		<td>
+			<% if offer.expired? %>
+				<span class="badge badge-warning">expired</span>
+			<% end %>
+			<%= offer.max_valid_date %>
 		</td>
 		<td>
 			<%= offer.is_active %>

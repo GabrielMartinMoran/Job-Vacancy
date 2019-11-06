@@ -6,6 +6,12 @@ class JobOfferRepository < BaseRepository
     load_collection dataset.where(is_active: true)
   end
 
+  def all_showable
+    load_collection dataset.where(
+      Sequel.lit("(max_valid_date >= '#{Date.today}' OR max_valid_date IS NULL) AND is_active IS TRUE")
+    )
+  end
+
   def find_by_owner(user)
     load_collection dataset.where(user_id: user.id)
   end
@@ -53,7 +59,8 @@ class JobOfferRepository < BaseRepository
       tags: offer.tags,
       is_active: offer.is_active,
       user_id: offer.owner&.id || offer.user_id,
-      users_notified: offer.users_notified
+      users_notified: offer.users_notified,
+      max_valid_date: offer.max_valid_date
     }
   end
 end
