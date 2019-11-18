@@ -6,6 +6,12 @@ class JobOfferRepository < BaseRepository
     load_collection dataset.where(is_active: true)
   end
 
+  def all_showable
+    load_collection dataset.where(
+      Sequel.lit("(max_valid_date >= '#{Date.today}' OR max_valid_date IS NULL) AND is_active IS TRUE")
+    )
+  end
+
   def find_by_owner(user)
     load_collection dataset.where(user_id: user.id)
   end
@@ -19,14 +25,13 @@ class JobOfferRepository < BaseRepository
     end
   end
 
-  def search_by_tags(tags)
-    tags_array = tags.split(',')
-    return [] if tags_array.empty?
+  def search_by_tags(tags_list)
+    return [] if tags_list.empty?
 
-    seq = Sequel.like(:tags, "%#{tags_array[0]}%")
-    if tags_array.size > 1
-      (1..(tags_array.size - 1)).each do |index|
-        seq |= Sequel.like(:tags, "%#{tags_array[index]}%")
+    seq = Sequel.like(:tags, "%#{tags_list[0]}%")
+    if tags_list.size > 1
+      (1..(tags_list.size - 1)).each do |index|
+        seq |= Sequel.like(:tags, "%#{tags_list[index]}%")
       end
     end
     load_collection dataset.where(seq)
@@ -53,7 +58,9 @@ class JobOfferRepository < BaseRepository
       description: offer.description,
       tags: offer.tags,
       is_active: offer.is_active,
-      user_id: offer.owner&.id || offer.user_id
+      user_id: offer.owner&.id || offer.user_id,
+      users_notified: offer.users_notified,
+      max_valid_date: offer.max_valid_date
     }
   end
 end

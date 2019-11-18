@@ -1,16 +1,19 @@
 require_relative 'secure_password'
+require_relative 'taggable'
 
 class User
   include ActiveModel::Validations
+  include Taggable
 
   attr_accessor :id, :name, :email, :crypted_password, :job_offers, :updated_on, :created_on,
-                :short_bio, :login_failed_attempts, :last_lock_date
+                :short_bio, :login_failed_attempts, :last_lock_date, :prefered_tags
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   MIN_LENGTH_VALID_BIO = 50
   MAX_LENGTH_VALID_BIO = 500
   MIN_LOCKED_HOURS = 24
   MAX_LOGIN_FAILED_ATTEMPS = 3
+  MAX_PREFERED_TAGS = 10
 
   validates :name, :crypted_password, :email,
             presence: { message: 'All fields are mandatory' }
@@ -31,6 +34,7 @@ class User
     @updated_on = data[:updated_on]
     @created_on = data[:created_on]
     @short_bio = data[:short_bio]
+    @prefered_tags = parse_tags(data[:prefered_tags], MAX_PREFERED_TAGS)
     load_lock_data(data)
   end
 
@@ -68,6 +72,19 @@ class User
 
     @login_failed_attempts = 0
     @last_lock_date = Time.now
+  end
+
+  def password=(password)
+    @crypted_password = Crypto.encrypt(password)
+  end
+
+  def valid?
+    unless @has_valid_tags
+      errors.add(:prefered_tags, 'Too much prefered tags')
+      return false
+    end
+
+    super
   end
 
   private

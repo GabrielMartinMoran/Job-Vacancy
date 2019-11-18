@@ -15,6 +15,8 @@ describe JobOffer do
     it { is_expected.to respond_to(:is_active) }
     it { is_expected.to respond_to(:tags) }
     it { is_expected.to respond_to(:applications_quantity) }
+    it { is_expected.to respond_to(:users_notified) }
+    it { is_expected.to respond_to(:max_valid_date) }
   end
 
   describe 'valid?' do
@@ -27,6 +29,128 @@ describe JobOffer do
     it 'should be valid when title is not blank' do
       job_offer = described_class.new(title: 'a title')
       expect(job_offer).to be_valid
+    end
+
+    it 'should be false when tags are greather than 3' do
+      user = described_class.new(title: 'John Doe Offer',
+                                 tags: '1,2,3,4')
+      expect(user.valid?).to eq false
+      expect(user.errors).to have_key(:tags)
+    end
+  end
+
+  describe 'expired?' do
+    it 'should be true when max_valid_date is older than today' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = Date.today - 1
+      expect(job_offer.expired?).to eq true
+    end
+
+    it 'should be false when max_valid_date is newer than today' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = Date.today + 1
+      expect(job_offer.expired?).to eq false
+    end
+
+    it 'should be false when max_valid_date is today' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = Date.today
+      expect(job_offer.expired?).to eq false
+    end
+
+    it 'should be false when max_valid_date is nil' do
+      job_offer = described_class.new(title: 'a title')
+      job_offer.max_valid_date = nil
+      expect(job_offer.expired?).to eq false
+    end
+  end
+
+  describe 'showable?' do
+    it 'should be false when max_valid_date expired and is_active' do
+      job_offer = described_class.new(title: 'a title', is_active: true)
+      job_offer.max_valid_date = Date.today - 1
+      expect(job_offer.showable?).to eq false
+    end
+
+    it 'should be true when max_valid_date not expired and is_active' do
+      job_offer = described_class.new(title: 'a title', is_active: true)
+      job_offer.max_valid_date = Date.today + 1
+      expect(job_offer.showable?).to eq true
+    end
+
+    it 'should be false when max_valid_date not expired and not is_active' do
+      job_offer = described_class.new(title: 'a title', is_active: false)
+      job_offer.max_valid_date = Date.today + 1
+      expect(job_offer.showable?).to eq false
+    end
+
+    it 'should be true when max_valid_date is nil and is_active' do
+      job_offer = described_class.new(title: 'a title', is_active: true)
+      job_offer.max_valid_date = nil
+      expect(job_offer.showable?).to eq true
+    end
+  end
+
+  describe 'initialize' do
+    it 'should set users_notified with provided value' do
+      job_offer = described_class.new(users_notified: true)
+      expect(job_offer.users_notified).to be true
+    end
+
+    it 'should set users_notified with false if not provided' do
+      job_offer = described_class.new
+      expect(job_offer.users_notified).to be false
+    end
+
+    it 'should set max_valid_date with provided value' do
+      job_offer = described_class.new(max_valid_date: Date.new(2019))
+      expect(job_offer.max_valid_date).to eq Date.new(2019)
+    end
+  end
+
+  describe 'activate' do
+    let!(:offer) do
+      described_class.new(id: -999,
+                          title: 'a title',
+                          description: 'a description',
+                          location: 'a location')
+    end
+
+    it 'should deliver offer info notification when users_notified is false' do
+      users_to_notify = [User.new(email: 'user_notify_1@test.com'),
+                         User.new(email: 'user_notify_2@test.com')]
+      expect(JobVacancy::App).to receive(:deliver).twice
+      offer.activate(users_to_notify)
+      expect(offer.users_notified).to be true
+      expect(offer.is_active).to be true
+    end
+
+    it 'should not deliver emails if users_notified is false and there is no users to notify' do
+      expect(JobVacancy::App).not_to receive(:deliver)
+      offer.activate
+      expect(offer.users_notified).to be true
+      expect(offer.is_active).to be true
+    end
+
+    it 'should not deliver offer info notification when users_notified is true' do
+      offer.users_notified = true
+      users_to_notify = [User.new(email: 'user_notify_1@test.com'),
+                         User.new(email: 'user_notify_2@test.com')]
+      expect(JobVacancy::App).not_to receive(:deliver)
+      offer.activate(users_to_notify)
+      expect(offer.users_notified).to be true
+      expect(offer.is_active).to be true
+    end
+  end
+
+  describe 'tags_list' do
+    it 'should return a tag list from tags property' do
+      job_offer.tags = 'tag1,tag2,tag3'
+      expect(job_offer.tags_list).to eq(%w[tag1 tag2 tag3])
+    end
+
+    it 'should return a empty list if tags property is not specified' do
+      expect(job_offer.tags_list).to eq([])
     end
   end
 end

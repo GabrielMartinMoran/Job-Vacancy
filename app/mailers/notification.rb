@@ -58,4 +58,13 @@ JobVacancy::App.mailer :notification do
     content_type :plain
     render 'notification/applicant_apply_email'
   end
+
+  email :offer_notification_email do |job_offer, recipient|
+    from 'no_reply@jobvacancy.com'
+    to recipient
+    subject 'This new Job Offer may interest you'
+    locals job_offer: job_offer, host: HOST
+    content_type 'text/html'
+    render 'notification/offer_notification_email'
+  end
 end

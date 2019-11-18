@@ -66,7 +66,7 @@ describe JobOfferRepository do
     end
 
     it 'should retrieve offers with tag matches' do
-      result = repository.search_by_tags(main_offer.tags)
+      result = repository.search_by_tags(main_offer.tags_list)
       offer_programmer_db = repository.find(offer_programmer.id)
       offer_programmer_web_db = repository.find(offer_programmer_web.id)
       offer_programmer_web_ruby_db = repository.find(offer_programmer_web_ruby.id)
@@ -78,7 +78,7 @@ describe JobOfferRepository do
     end
 
     it 'should not retrieve offers with no tag matches' do
-      result = repository.search_by_tags(main_offer.tags)
+      result = repository.search_by_tags(main_offer.tags_list)
       offer_no_tags_db = repository.find(offer_no_tags.id)
       offer_other_tags_db = repository.find(offer_other_tags.id)
       main_offer_db = repository.find(offer_other_tags.id)
@@ -121,6 +121,82 @@ describe JobOfferRepository do
 
       not_updated_offer = repository.find(today_offer.id)
       expect(not_updated_offer.is_active).to eq true
+    end
+  end
+
+  describe 'find' do
+    let!(:offer) do
+      offer = JobOffer.new(title: 'a title',
+                           updated_on: Date.today,
+                           is_active: true,
+                           user_id: owner.id, tags: 'programmer',
+                           users_notified: true,
+                           max_valid_date: Date.new(2019))
+      repository.save(offer)
+      offer
+    end
+
+    it 'should load users_notified' do
+      obtained = repository.find(offer.id)
+      expect(obtained.users_notified).to eq(offer.users_notified)
+    end
+
+    it 'should load max_valid_date' do
+      obtained = repository.find(offer.id)
+      expect(obtained.max_valid_date.to_s).to eq(offer.max_valid_date.to_s)
+    end
+  end
+
+  describe 'all_showable' do
+    let!(:showable_offer1) do
+      showable_offer1 = JobOffer.new(title: 'a showable_offer1',
+                                     updated_on: Date.today,
+                                     is_active: true,
+                                     user_id: owner.id)
+      repository.save(showable_offer1)
+      showable_offer1
+    end
+
+    let!(:showable_offer2) do
+      showable_offer2 = JobOffer.new(title: 'a showable_offer2',
+                                     updated_on: Date.today,
+                                     is_active: true,
+                                     user_id: owner.id,
+                                     max_valid_date: Date.today + 10)
+      repository.save(showable_offer2)
+      showable_offer2
+    end
+
+    let!(:not_showable_offer1) do
+      not_showable_offer1 = JobOffer.new(title: 'a not_showable_offer1',
+                                         updated_on: Date.today,
+                                         is_active: true,
+                                         user_id: owner.id,
+                                         max_valid_date: Date.today - 10)
+      repository.save(not_showable_offer1)
+      not_showable_offer1
+    end
+
+    let!(:not_showable_offer2) do
+      not_showable_offer2 = JobOffer.new(title: 'a not_showable_offer2',
+                                         updated_on: Date.today,
+                                         is_active: false,
+                                         user_id: owner.id,
+                                         max_valid_date: Date.today + 10)
+      repository.save(not_showable_offer2)
+      not_showable_offer2
+    end
+
+    it 'should retrieve showable offers' do
+      result = repository.all_showable
+      not_showable_offer_1_db = repository.find(not_showable_offer1.id)
+      not_showable_offer_2_db = repository.find(not_showable_offer2.id)
+      showable_offer_1_db = repository.find(showable_offer1.id)
+      showable_offer_2_db = repository.find(showable_offer2.id)
+      result_id = []
+      result.each { |offer| result_id << offer.title }
+      expect(result_id).to include(showable_offer_1_db.title, showable_offer_2_db.title)
+      expect(result_id).not_to include(not_showable_offer_1_db.title, not_showable_offer_2_db.title)
     end
   end
 end

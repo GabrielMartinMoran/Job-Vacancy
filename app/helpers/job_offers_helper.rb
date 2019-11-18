@@ -10,4 +10,10 @@ JobVacancy::App.helpers do
 
     params[:job_application][:expected_remuneration].to_f
   end
+
+  def parse_max_valid_date
+    return nil if job_offer_params[:max_valid_date].nil? || job_offer_params[:max_valid_date].empty?
+
+    Date.parse(job_offer_params[:max_valid_date])
+  end
 end

@@ -14,6 +14,7 @@ describe User do
     it { is_expected.to respond_to(:short_bio) }
     it { is_expected.to respond_to(:login_failed_attempts) }
     it { is_expected.to respond_to(:last_lock_date) }
+    it { is_expected.to respond_to(:prefered_tags) }
   end
 
   describe 'valid?' do
@@ -68,6 +69,16 @@ describe User do
                                  short_bio: 'A' * 501)
       expect(user.valid?).to eq false
       expect(user.errors).to have_key(:short_bio)
+    end
+
+    it 'should be false when prefered_tags are greather than 10' do
+      user = described_class.new(name: 'John Doe',
+                                 email: 'john.doe@someplace.com',
+                                 crypted_password: 'a_secure_passWord!',
+                                 short_bio: 'A' * SHORT_BIO_VALID_LENGTH,
+                                 prefered_tags: '1,2,3,4,5,6,7,8,9,10,11')
+      expect(user.valid?).to eq false
+      expect(user.errors).to have_key(:prefered_tags)
     end
   end
 
@@ -141,6 +152,20 @@ describe User do
       user.add_login_failed_attempt
       expect(user.login_failed_attempts).to eq 0
       expect(user.last_lock_date.round).to eq(Time.now.round)
+    end
+  end
+
+  describe 'password=' do
+    it 'should set crypted_password with crypted version of provided password' do
+      user.password = 'Passw0rd!123'
+      expect(user).to have_password('Passw0rd!123')
+    end
+  end
+
+  describe 'initialize' do
+    it 'should set prefered_tags' do
+      user = described_class.new(prefered_tags: 'prefered_tag1,prefered_tag2')
+      expect(user.prefered_tags).to eq('prefered_tag1,prefered_tag2')
     end
   end
 end
